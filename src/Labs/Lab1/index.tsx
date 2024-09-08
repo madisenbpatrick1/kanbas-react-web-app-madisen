@@ -247,6 +247,15 @@ This is the third paragraph. Wrap each paragraph with the paragraph tag to tell 
                 value="2000-01-21"/><br/>
                 </form>
             </div>
+            <div>
+                <h4>Anchor tag</h4>
+                Please
+                <a id="wd-lipsum" href="https://www.lipsum.com">click here</a>
+                to get dummy text<br/>
+                Please 
+                <a id="wd-github" href="https://github.com/madisenbpatrick1/kanbas-react-web-app-madisen">click here</a> to access code repository on GitHub<br/>
+            </div>
+            
         </div>
     );
 }
