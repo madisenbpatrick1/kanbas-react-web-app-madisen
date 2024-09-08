@@ -72,8 +72,88 @@ This is the third paragraph. Wrap each paragraph with the paragraph tag to tell 
                     <li>A Raisin in the Sun</li>
                     <li>Finding Me: A Memoir: Davis, Viola</li>
                     <li>Vanishing Half</li>
-                {/* complete on your own */}
                 </ul>
+            </div>
+            <div id="wd-tables">
+                <h4>Table Tag</h4>
+                <table border={1} width="100%">
+                    <thead>
+                        <tr>
+                            <th>Quiz</th>
+                            <th>Topic</th>
+                            <th>Date</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="left">Q1</td>
+                            <td align="left">HTML</td>
+                            <td align="left">2/3/21</td>
+                            <td align="left">85</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q2</td>
+                            <td align="left">HTML</td>
+                            <td align="left">2/10/21</td>
+                            <td align="left">90</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q3</td>
+                            <td align="left">CSS</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q4</td>
+                            <td align="left">CSS</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q5</td>
+                            <td align="left">JS</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q6</td>
+                            <td align="left">Redux</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q7</td>
+                            <td align="left">Redux</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q8</td>
+                            <td align="left">Node</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q9</td>
+                            <td align="left">Node</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                        <tr>
+                            <td align="left">Q10</td>
+                            <td align="left">Modex</td>
+                            <td align="left">2/17/21</td>
+                            <td align="left">95</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colSpan={3}>Average</td>
+                            <td align="left">90</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     );
