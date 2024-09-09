@@ -10,11 +10,11 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Navigate to="Labs" />} />
-          <Route path="/Labs/*" element={<Labs />}/>
-          <Route path="/Kanbas/*" element={<Kanbas />}/>
+          <Route path="/Labs/*" element={<Labs />} />
+          <Route path="/Kanbas/*" element={<Kanbas />} />
         </Routes>
-      <Labs />
-    </div>
+        <Labs />
+      </div>
     </HashRouter>
   );
 }
