@@ -49,8 +49,8 @@ export default function AssignmentEditor() {
                     </td>
                     <td>
                         <select id="wd-submission-type">
-                            <option value="Percentage">Percentage</option>
-                            <option value="Score">Score</option>
+                            <option value="Percentage">Online</option>
+                            <option value="Score">Email</option>
                         </select>
                         <br />
                         <label>Online Entry Options</label><br />
