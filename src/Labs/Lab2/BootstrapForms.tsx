@@ -12,5 +12,15 @@
                 Example textarea</label>
             <textarea className="form-control" id="textarea1"
                 rows={3}></textarea>
-        </div></div>
+        </div>
+    </div>
+    <div id="wd-css-styling-dropdowns">
+        <h3>Dropdowns</h3>
+        <select className="form-select">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+    </div>
 </div>
