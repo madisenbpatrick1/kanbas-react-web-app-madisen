@@ -583,7 +583,7 @@ export default function Lab2() {
                 <h2>Cards</h2>
                 <div className="card"
                     style={{ width: "18rem" }}>
-                    <img src="images/stacked.jpg"
+                    <img src="images/stacked.jpg" alt="Stacking Starship"
                         className="card-img-top" />
                     <div className="card-body">
                         <h5 className="card-title">
@@ -592,7 +592,7 @@ export default function Lab2() {
                         <p className="card-text">
                             Stacking the most powerful rocket in history. Mars or bust!
                         </p>
-                        <a href="#" className="btn btn-primary">
+                        <a href="www.google.com" className="btn btn-primary">
                             Boldly Go
                         </a> </div>
                 </div>
