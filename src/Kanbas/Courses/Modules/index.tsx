@@ -6,7 +6,6 @@ import { BsGripVertical } from "react-icons/bs";
 export default function Modules() {
     return (
         <div>
-            {/* Implement Collapse All button, View Progress button, etc. */}
             <ModulesControls /><br /><br /><br /><br />
             <ul is="wd-modules" className="list-group rounded-0 w-100">
                 <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
