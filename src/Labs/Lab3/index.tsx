@@ -3,6 +3,8 @@ import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes";
 import IfElse from "./IfElse";
 import TernaryOperator from "./TernaryOperator";
+import ConditionalOutputIfElse from "./ConditionalOutputIfElse";
+import ConditionalOutputInline from "./ConditionalOutputInline";
 export default function Lab3() {
     return (
         <div id="wd-lab3">
@@ -12,6 +14,9 @@ export default function Lab3() {
             <BooleanVariables />
             <IfElse />
             <TernaryOperator />
+            <ConditionalOutputIfElse />
+            {/* <hr/> */}
+            <ConditionalOutputInline/>
         </div>
     );
 }
