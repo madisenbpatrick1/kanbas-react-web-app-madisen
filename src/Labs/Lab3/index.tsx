@@ -20,6 +20,7 @@ import FilterFunction from "./FilterFunction";
 import JsonStringify from "./JsonStringify";
 import House from "./House";
 import TodoList from "./todos/TodoList";
+import Spreading from "./Spreading";
 
 
 export default function Lab3() {
@@ -49,6 +50,7 @@ export default function Lab3() {
             <JsonStringify />
             <House />
             <TodoList />
+            <Spreading />
         </div>
     );
 }
