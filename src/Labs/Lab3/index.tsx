@@ -16,6 +16,8 @@ import ForLoops from "./ForLoops";
 import MapFunction from "./MapFunction";
 import FindFunction from "./FindFunction";
 import FindIndex from "./FindIndex";
+import FilterFunction from "./FilterFunction";
+
 export default function Lab3() {
     return (
         <div id="wd-lab3">
@@ -39,6 +41,7 @@ export default function Lab3() {
             <MapFunction />
             <FindFunction />
             <FindIndex />
+            <FilterFunction />
         </div>
     );
 }
