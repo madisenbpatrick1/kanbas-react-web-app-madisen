@@ -17,6 +17,8 @@ import MapFunction from "./MapFunction";
 import FindFunction from "./FindFunction";
 import FindIndex from "./FindIndex";
 import FilterFunction from "./FilterFunction";
+import JsonStringify from "./JsonStringify";
+
 
 export default function Lab3() {
     return (
@@ -42,6 +44,7 @@ export default function Lab3() {
             <FindFunction />
             <FindIndex />
             <FilterFunction />
+            <JsonStringify />
         </div>
     );
 }
