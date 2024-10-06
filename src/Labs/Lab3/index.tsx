@@ -9,6 +9,8 @@ import LegacyFunctions from "./LegacyFunctions";
 import ArrowFunctions from "./arrowFunctions";
 import ImpliedReturn from "./ImpliedReturn";
 import TemplateLiterals from "./TemplateLiterals";
+import SimpleArrays from "./SimpleArrays";
+import ArrayIndexAndLength from "./ArrayIndexAndLength";
 export default function Lab3() {
     return (
         <div id="wd-lab3">
@@ -25,6 +27,8 @@ export default function Lab3() {
             <ArrowFunctions />
             <ImpliedReturn />
             <TemplateLiterals />
+            <SimpleArrays />
+            <ArrayIndexAndLength />
         </div>
     );
 }
