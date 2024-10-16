@@ -1,11 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router";
-import { courses } from "../Database";
 
 export default function CoursesNavigation() {
     // retrieve current course's ID
     const { cid } = useParams();
-    const course = courses.find((course) => course._id === cid);
 
     // use Location to retrieve the current pathname
     const { pathname } = useLocation();
