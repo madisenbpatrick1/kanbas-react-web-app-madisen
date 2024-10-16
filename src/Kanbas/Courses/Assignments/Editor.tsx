@@ -1,5 +1,13 @@
+import { useParams } from "react-router";
+import * as db from "../../Database";
+import { Link } from "react-router-dom";
 
 export default function AssignmentEditor() {
+    const { cid, aid } = useParams();
+    const assignments = db.assignments;
+    const assignment = assignments.find((assignment) => assignment._id === aid);
+
+
     return (
         <div id="wd-assignments-editor">
             <form>
@@ -7,7 +15,7 @@ export default function AssignmentEditor() {
                     <label htmlFor="wd-name" className="form-label">
                         Assignment Name</label>
                     <input type="text" className="form-control mb-3"
-                        id="wd-name" placeholder="" value="A1" />
+                        id="wd-name" placeholder="" value={assignment?._id} />
                     <textarea className="form-control" id="wd-description" value="The assignment is available online Submit a link to the landing page of your web..."
                         rows={3}></textarea>
                 </div>
@@ -128,12 +136,17 @@ export default function AssignmentEditor() {
             </form>
             <hr />
             {/* Save and cancel buttons */}
-            <button type="submit" className="btn btn-danger me-1 float-end" id="wd-assignment-save">
-                Save
-            </button>
-            <button type="submit" className="btn btn-secondary float-end me-1" id="wd-assignment-cancel">
-                Cancel
-            </button>
+            <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
+                <button type="submit" className="btn btn-danger me-1 float-end" id="wd-assignment-save">
+                    Save
+                </button>
+            </Link>
+            <Link to={`/Kanbas/Courses/${cid}/Assignments`}>
+                <button type="submit" className="btn btn-secondary float-end me-1" id="wd-assignment-cancel">
+                    Cancel
+                </button>
+            </Link>
+
         </div>
     );
 }

@@ -12,7 +12,7 @@ export default function Assignments() {
     const { cid } = useParams();
     const assignments = db.assignments;
     const {pathname} = useLocation();
-    const path = pathname + "/"
+    const path = "#"+pathname + "/"
 
     return (
         <div id="wd-assignments">
