@@ -3,6 +3,7 @@ import PassingDataOnEvent from "./PassingDataOnEvent"
 import PassingFunctions from "./PassingFunctions"
 import EventObject from "./EventObject";
 import Counter from "./Counter";
+import BooleanStateVariables from "./BooLeanStateVariables";
 
 export default function Lab4() {
     function sayHello() {
@@ -16,6 +17,7 @@ export default function Lab4() {
             <PassingFunctions theFunction={sayHello}/>
             <EventObject />
             <Counter />
+            <BooleanStateVariables />
         </div>
     )
 }
