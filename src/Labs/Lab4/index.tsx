@@ -11,6 +11,7 @@ import ArrayStateVariable from "./ArrayStateVariable";
 import ParentStateComponent from "./ParentStateComponents";
 import ReduxExamples from "./ReduxExamples";
 import CounterRedux from "./ReduxExamples/CounterRedux";
+import AddRedux from "./ReduxExamples/AddRedux";
 
 
 export default function Lab4() {
@@ -33,6 +34,7 @@ export default function Lab4() {
             <ParentStateComponent />
             <ReduxExamples />
             <CounterRedux />
+            <AddRedux />
         </div>
     )
 }
