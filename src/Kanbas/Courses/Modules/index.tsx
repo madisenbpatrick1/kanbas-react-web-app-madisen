@@ -8,7 +8,7 @@ import { addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 
 
-export default function Modules({canEdit} : {canEdit: boolean;}) {
+export default function Modules({ canEdit }: { canEdit: boolean; }) {
     const { cid } = useParams();
     const [moduleName, setModuleName] = useState("");
     const { modules } = useSelector((state: any) => state.modulesReducer);
@@ -16,7 +16,7 @@ export default function Modules({canEdit} : {canEdit: boolean;}) {
 
     return (
         <div>
-           {canEdit && <><ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
+            {canEdit && <><ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
                 dispatch(addModule({
                     name: moduleName, course: cid
                 }));
@@ -34,7 +34,7 @@ export default function Modules({canEdit} : {canEdit: boolean;}) {
                                     <input className="form-control w-50 d-inline-block"
                                         onChange={(e) => dispatch(
                                             updateModule({ ...module, name: e.target.value })
-                                            )}
+                                        )}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") {
                                                 dispatch(

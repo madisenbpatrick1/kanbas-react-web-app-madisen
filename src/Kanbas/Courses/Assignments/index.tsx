@@ -5,8 +5,8 @@ import AssignmentListButtons from "./AssignmentListButtons";
 import { FaRegEdit } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useLocation } from "react-router"
-import { useSelector } from "react-redux";
-// import { addAssignment, deleteAssignment, updateAssignment } from "./reducer";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, deleteAssignment, updateAssignment } from "./reducer";
 
 export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     const { cid } = useParams();
@@ -15,6 +15,7 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     const { pathname } = useLocation();
     const path = "#" + pathname + "/"
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+    const dispatch = useDispatch();
 
     return (
         <div id="wd-assignments">
@@ -49,7 +50,7 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
                                                 <br /> Due May 13 at 11:59pm | 100pts</span></p>
                                         </div>
                                         <div className="wd-grid-col-right-sidebar">
-                                            {canEdit && <AssignmentListButtons />}
+                                            {canEdit && <AssignmentListButtons assignmentId={assignment._id} deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />}
                                         </div>
 
                                     </li>
