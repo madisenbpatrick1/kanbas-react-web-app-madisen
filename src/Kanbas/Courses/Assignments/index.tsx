@@ -38,10 +38,13 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
                                             {canEdit && <FaRegEdit className="me-2 fs-4" />}
                                         </div>
                                         <div className="wd-grid-col-main-content">
-                                            <a className="wd-assignment-link wd-fg-color-black text-decoration-none"
+                                            {canEdit && <a className="wd-assignment-link wd-fg-color-black text-decoration-none"
                                                 href={path + assignment._id}>
-                                                <h3>{assignment._id}</h3>
-                                            </a>
+                                                <h3>{assignment.title}</h3>
+                                            </a>}
+                                            {!canEdit &&
+                                                <h3>{assignment.title}</h3>
+                                            }
                                             <p className="wd-fg-color-red"> Multiple Modules <span className="wd-fg-color-black">| Not available until May 6 at 12:00am |
                                                 <br /> Due May 13 at 11:59pm | 100pts</span></p>
                                         </div>

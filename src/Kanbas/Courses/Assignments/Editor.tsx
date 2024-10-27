@@ -16,6 +16,7 @@ export default function AssignmentEditor() {
 
     const [assignment, setAssignment] = useState({
         _id: "",
+        title:"",
         description: "",
         points: 100,
         dueDate: "",
@@ -57,8 +58,8 @@ export default function AssignmentEditor() {
                         type="text"
                         className="form-control mb-3"
                         id="wd-name"
-                        value={assignment._id}
-                        onChange={(e) => setAssignment({ ...assignment, _id: e.target.value })}
+                        value={assignment.title}
+                        onChange={(e) => setAssignment({ ...assignment, title: e.target.value })}
                     />
                     <textarea
                         className="form-control"

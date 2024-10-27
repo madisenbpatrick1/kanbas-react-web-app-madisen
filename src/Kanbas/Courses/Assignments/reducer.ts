@@ -5,13 +5,14 @@ const initialState = {
     assignments: assignments,
 };
 
+
 const assignmentsSlice = createSlice({
     name: "assignments",
     initialState,
     reducers: {
         addAssignment: (state, { payload: assignment }) => {
             const newAssignment: any = {
-                _id: assignment._id,
+                _id: new Date().getTime().toString(),
                 title: assignment.title,
                 description: assignment.description,
                 points: assignment.points,
