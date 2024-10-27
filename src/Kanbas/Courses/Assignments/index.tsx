@@ -3,20 +3,18 @@ import { BsGripVertical } from "react-icons/bs";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import AssignmentListButtons from "./AssignmentListButtons";
 import { FaRegEdit } from "react-icons/fa";
-import React from "react";
 import { useParams } from "react-router";
-//import * as db from "../../Database";
 import { useLocation } from "react-router"
-import { useSelector, useDispatch } from "react-redux";
-import { addAssignment, deleteAssignment, updateAssignment } from "./reducer";
+import { useSelector } from "react-redux";
+// import { addAssignment, deleteAssignment, updateAssignment } from "./reducer";
 
-export default function Assignments({canEdit} : {canEdit: boolean;}) {
+export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     const { cid } = useParams();
+    //const [assignment, setAssignment] = useState("");
     //const assignments = db.assignments;
     const { pathname } = useLocation();
     const path = "#" + pathname + "/"
-    const {assignments} = useSelector((state: any) => state.assignmentsReducer);
-    const dispatch = useDispatch();
+    const { assignments } = useSelector((state: any) => state.assignmentsReducer);
 
     return (
         <div id="wd-assignments">

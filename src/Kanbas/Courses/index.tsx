@@ -30,7 +30,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Home" element={<ProtectedRouteHome><Home canEdit={false} /> </ProtectedRouteHome>} />
                         <Route path="Modules" element={<ProtectedRouteModules><Modules canEdit={false} /></ProtectedRouteModules>} />
                         <Route path="Assignments" element={<ProtectedRoute><Assignment canEdit={false} /></ProtectedRoute>} />
-                        <Route path="Assignments/:aid" element={<AssignmentEditor />} />
+                        <Route path="Assignments/:aid" element={<AssignmentEditor/>} />
                         <Route path="People" element={<PeopleTable />} />
                     </Routes>
                 </div>
