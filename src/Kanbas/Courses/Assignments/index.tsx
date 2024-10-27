@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 import * as db from "../../Database";
 import { useLocation } from "react-router"
 
-export default function Assignments() {
+export default function Assignments({canEdit} : {canEdit: boolean;}) {
     const { cid } = useParams();
     const assignments = db.assignments;
     const { pathname } = useLocation();
@@ -16,14 +16,14 @@ export default function Assignments() {
 
     return (
         <div id="wd-assignments">
-            <AssignmentControls /><br /><br /><br /><br />
+            {canEdit && (<><AssignmentControls /><br /></>)}
             <ul id="wd-assignment-list" className="list-group rounded-0 w-100">
                 <ul id="wd-assignment-list" className="list-group rounded-0 w-100">
                     <li className="wd-assignment-list-item list-group-item p-0 mb-5 fs-5 border-gray">
                         <div className="wd-assignments-title p-3 ps-2 bg-secondary" >
                             <BsGripVertical className="me-2 fs-3" />
                             Assignments
-                            <AssignmentControlButtons />
+                            {canEdit && <AssignmentControlButtons />}
                         </div>
                         {assignments
                             .filter((assignment: any) => assignment.course === cid)
@@ -33,7 +33,7 @@ export default function Assignments() {
                                     <li className="wd-lesson list-group-item wd-grid-row p-3 ps-1">
                                         <div className="wd-grid-col-left-sidebar">
                                             <BsGripVertical className="me-2 fs-3" />
-                                            <FaRegEdit className="me-2 fs-4" />
+                                            {canEdit && <FaRegEdit className="me-2 fs-4" />}
                                         </div>
                                         <div className="wd-grid-col-main-content">
                                             <a className="wd-assignment-link wd-fg-color-black text-decoration-none"
@@ -44,7 +44,7 @@ export default function Assignments() {
                                                 <br /> Due May 13 at 11:59pm | 100pts</span></p>
                                         </div>
                                         <div className="wd-grid-col-right-sidebar">
-                                            <AssignmentListButtons />
+                                            {canEdit && <AssignmentListButtons />}
                                         </div>
 
                                     </li>

@@ -8,7 +8,7 @@ import { addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 
 
-export default function Modules() {
+export default function Modules({canEdit} : {canEdit: boolean;}) {
     const { cid } = useParams();
     const [moduleName, setModuleName] = useState("");
     const { modules } = useSelector((state: any) => state.modulesReducer);
@@ -16,12 +16,12 @@ export default function Modules() {
 
     return (
         <div>
-            <ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
+           {canEdit && <><ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
                 dispatch(addModule({
                     name: moduleName, course: cid
                 }));
                 setModuleName("");
-            }} /><br /><br /><br /><br />
+            }} /><br /><br /><br /></>}
             <ul is="wd-modules" className="list-group rounded-0 w-100">
                 {modules
                     .filter((module: any) => module.course === cid)
@@ -43,13 +43,13 @@ export default function Modules() {
                                         }}
                                         defaultValue={module.name} />
                                 )}
-                                <ModuleControlButtons
+                                {canEdit && <ModuleControlButtons
                                     moduleId={module._id}
                                     deleteModule={(moduleId) => {
                                         dispatch(deleteModule(moduleId));
                                     }}
                                     editModule={(moduleId) => dispatch(editModule(moduleId))}
-                                />
+                                />}
                             </div>
                             {module.lessons && (
                                 <ul className="wd-lessons list-group rounded-0">
@@ -57,7 +57,7 @@ export default function Modules() {
                                         <li className="wd-lesson list-group-item p-3 ps-1">
                                             <BsGripVertical className="me-2 fs-3" />
                                             {lesson.name}
-                                            <LessonControlButtons />
+                                            {canEdit && <LessonControlButtons />}
                                         </li>
                                     ))}
                                 </ul>

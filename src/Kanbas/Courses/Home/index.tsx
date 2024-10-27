@@ -1,14 +1,14 @@
 import Modules from "../Modules";
 import CourseStatus from "./Status";
-export default function Home() {
+export default function Home({canEdit}: {canEdit: boolean;}) {
     return (
         <div className="d-flex" id="wd-home">
             <div className="flex-fill me-3">
-                <Modules />
+                <Modules canEdit={false} />
             </div>
-            <div className="d-none d-md-block">
+            {canEdit && <div className="d-none d-md-block">
                 <CourseStatus />
-            </div>
+            </div>}
         </div>
 
     );
