@@ -53,6 +53,7 @@ export default function Kanbas() {
                                     deleteCourse={deleteCourse}
                                     updateCourse={updateCourse}
                                     canEdit={false}
+                                    roleStudent={false}
                                 />
                             </ProtectedRouteDashboard>
                         </ProtectedRoute>} />

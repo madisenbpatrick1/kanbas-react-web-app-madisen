@@ -6,7 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useLocation } from "react-router"
 import { useSelector, useDispatch } from "react-redux";
-import { addAssignment, deleteAssignment, updateAssignment } from "./reducer";
+import { deleteAssignment } from "./reducer";
 
 export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     const { cid } = useParams();
@@ -20,7 +20,7 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     return (
         <div id="wd-assignments">
             {canEdit && (<><AssignmentControls /><br /></>)}
-            <ul id="wd-assignment-list" className="list-group rounded-0 w-100">
+            <ul id="wd-assignment-list" className="list-group rounded-0 w-100" >
                 <ul id="wd-assignment-list" className="list-group rounded-0 w-100">
                     <li className="wd-assignment-list-item list-group-item p-0 mb-5 fs-5 border-gray">
                         <div className="wd-assignments-title p-3 ps-2 bg-secondary" >
