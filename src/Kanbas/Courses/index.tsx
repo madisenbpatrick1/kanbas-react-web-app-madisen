@@ -9,6 +9,7 @@ import { FaAlignJustify } from "react-icons/fa";
 import ProtectedRoute from "./Assignments/ProtectedRoute";
 import ProtectedRouteModules from "./Modules/ModulesProtectedRoute";
 import ProtectedRouteHome from "./Home/HomeProtectedRoute";
+import Quizzes from "./Quizzes";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
@@ -31,6 +32,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Modules" element={<ProtectedRouteModules><Modules canEdit={false} /></ProtectedRouteModules>} />
                         <Route path="Assignments" element={<ProtectedRoute><Assignment canEdit={false} /></ProtectedRoute>} />
                         <Route path="Assignments/:aid" element={<AssignmentEditor/>} />
+                        <Route path="Quizzes" element={<Quizzes />}/>
                         <Route path="People" element={<PeopleTable />} />
                     </Routes>
                 </div>
