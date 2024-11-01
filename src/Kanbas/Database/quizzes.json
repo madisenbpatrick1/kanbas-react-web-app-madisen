@@ -1,0 +1,12 @@
+[
+    { "_id": "Q101", "title": "Q1 - HTML", "course": "RS101", "availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0 },
+    { "_id": "Q102", "title": "Q2 - CSS", "course": "RS101", "availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0 },
+    { "_id": "Q103", "title": "EXAM 1 FA 24", "course": "RS101", "availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  },
+    { "_id": "Q201", "title": "Aerodynamics Quiz", "course": "RS102","availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  },
+    { "_id": "Q202", "title": "Flow Analysis", "course": "RS102","availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  },
+    { "_id": "Q203", "title": "Heating Analysis", "course": "RS102","availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  },
+    { "_id": "Q301", "title": "Structural Design Task", "course": "RS103","availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  },
+    { "_id": "Q302", "title": "Orbital Calculations", "course": "RS103","availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  },
+    { "_id": "Q303", "title": "Systems Engineering Exam", "course": "RS103","availability": "Closed", "due_date": "Sep 21 at 1pm", "points": 100, "num_of_q":10, "score":0  }
+  ]
+  
