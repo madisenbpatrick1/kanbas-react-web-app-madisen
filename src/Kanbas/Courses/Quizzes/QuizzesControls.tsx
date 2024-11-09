@@ -11,7 +11,7 @@ export default function QuizzesControls() {
             <button id="wd-add-quizzes-btn" className="btn btn-lg btn-secondary me-1 float-end">
                 <IoEllipsisVertical className="fs-4" />
             </button>
-            <Link to={`/Kanbas/Courses/${cid}/Quizzes/Editor`}>
+            <Link to={`/Kanbas/Courses/${cid}/Quizzes/Details`}>
                 <button
                     id="wd-add-assignment-btn"
                     className="btn btn-lg btn-danger me-1 float-end"

@@ -10,6 +10,10 @@ import ProtectedRoute from "./Assignments/ProtectedRoute";
 import ProtectedRouteModules from "./Modules/ModulesProtectedRoute";
 import ProtectedRouteHome from "./Home/HomeProtectedRoute";
 import Quizzes from "./Quizzes";
+import QuizDetails from "./Quizzes";
+import ProtectedRouteQuizzes from "./Quizzes/ProtectedRoute";
+import ProtectedRouteQuizDetails from "./Quizzes/Quiz Details/ProtectedRoute";
+import QuizzesEditor from "./Quizzes/Editor";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
@@ -31,8 +35,10 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Home" element={<ProtectedRouteHome><Home canEdit={false} /> </ProtectedRouteHome>} />
                         <Route path="Modules" element={<ProtectedRouteModules><Modules canEdit={false} /></ProtectedRouteModules>} />
                         <Route path="Assignments" element={<ProtectedRoute><Assignment canEdit={false} /></ProtectedRoute>} />
-                        <Route path="Assignments/:aid" element={<AssignmentEditor/>} />
-                        <Route path="Quizzes" element={<Quizzes />}/>
+                        <Route path="Assignments/:aid" element={<AssignmentEditor />} />
+                        <Route path="Quizzes" element={<ProtectedRouteQuizzes><Quizzes canEdit={false} /></ProtectedRouteQuizzes>} />
+                        <Route path="Quizzes/Details/:qid" element={<ProtectedRouteQuizDetails><QuizDetails canEdit={false} /></ProtectedRouteQuizDetails>} />
+                        <Route path="Quizzes/Editor/:qid" element={<QuizzesEditor  />} />
                         <Route path="People" element={<PeopleTable />} />
                     </Routes>
                 </div>
