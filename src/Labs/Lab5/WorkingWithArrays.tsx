@@ -33,11 +33,15 @@ export default function WorkingWithArrays() {
             <a id="wd-retrieve-completed-todos" className="btn btn-primary"
                 href={`${API}/create`}>
                 Create Todo
-            </a><hr />
+            </a>
+            <hr />
+
             <h3>Deleting from an Array</h3>
             <a id="wd-retrieve-completed-todos" className="btn btn-primary float-end" href={`${API}/${todo.id}/delete`}>
                 Delete Todo with ID = {todo.id} </a>
-            <input value={todo.id} className="form-control w-50" onChange={(e) => setTodo({ ...todo, id: e.target.value })} /><hr />
+            <input value={todo.id} className="form-control w-50" onChange={(e) => setTodo({ ...todo, id: e.target.value })} />
+            <hr />
+
             <h3>Updating an Item in an Array</h3>
             <a href={`${API}/${todo.id}/title/${todo.title}`} className="btn btn-primary float-end">
                 Update Todo</a>
@@ -45,6 +49,24 @@ export default function WorkingWithArrays() {
                 onChange={(e) => setTodo({ ...todo, id: e.target.value })} />
             <input value={todo.title} className="form-control w-50 float-start"
                 onChange={(e) => setTodo({ ...todo, title: e.target.value })} />
+            <br /><br /><hr />
+
+            <h3>Updating the description</h3>
+            <a href={`${API}/${todo.id}/description/${todo.description}`} className="btn btn-primary float-end">
+                Update Description</a>
+            <input value={todo.description} className="form-control w-50 float-start"
+                onChange={(e) => setTodo({ ...todo, description: e.target.value })} />
+            <br /><br /><hr />
+
+            <h3>Updating Completed</h3>
+            <a href={`${API}/${todo.id}/completed/${todo.completed}`} className="btn btn-primary float-end">
+                Update completed</a>
+            <input
+                className="form-check w-50 float-start"
+                value={todo.completed ? "true" : "false"} 
+                type="checkbox"
+                onChange={(e) =>
+                    setTodo({ ...todo, completed: e.target.checked })} />
             <br /><br /><hr />
 
         </div>
