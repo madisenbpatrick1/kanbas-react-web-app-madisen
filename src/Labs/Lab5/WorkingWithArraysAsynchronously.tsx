@@ -18,6 +18,10 @@ export default function WorkingWithArraysAsynchronously() {
         const updatedTodos = await client.removeTodo(todo);
         setTodos(updatedTodos);
     };
+    const postTodo = async () => {
+        const newTodo = await client.postTodo({ title: "New Posted Todo", completed: false, });
+        setTodos([...todos, newTodo]);
+    };
 
     useEffect(() => {
         fetchTodos();
@@ -28,6 +32,7 @@ export default function WorkingWithArraysAsynchronously() {
             <h4>Todos
                 <FaPlusCircle onClick={createTodo} className="text-success float-end fs-3"
                     id="wd-create-todo" />
+                <FaPlusCircle onClick={postTodo} className="text-primary float-end fs-3 me-3" id="wd-post-todo" />
             </h4>
             <ul className="list-group">
                 {todos.map((todo) => (
