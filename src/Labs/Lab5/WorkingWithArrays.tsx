@@ -9,6 +9,7 @@ export default function WorkingWithArrays() {
         due: "2021-09-09",
         completed: false,
     });
+    
 
 
     return (
