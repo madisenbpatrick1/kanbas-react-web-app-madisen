@@ -1,16 +1,21 @@
+import EnvironmentVariables from "./EnvironmentVariables";
+const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 export default function Lab5() {
+  console.log("remote",REMOTE_SERVER);
   return (
     <div id="wd-lab5">
       <h2>Lab 5</h2>
       <div className="list-group">
         <a
-          href="http://localhost:4000/lab5/welcome"
+          href={`${REMOTE_SERVER}/lab5/welcome`}
           className="list-group-item"
         >
           Welcome
         </a>
       </div>
+      <EnvironmentVariables />
       <hr />
+      
     </div>
   );
 }
