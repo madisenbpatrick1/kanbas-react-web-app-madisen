@@ -1,30 +1,27 @@
 import { BsGripVertical } from "react-icons/bs";
 import QuizzesControls from "./QuizzesControls";
-import { useState } from "react";
-import * as db from "../../Database";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import { RxRocket } from "react-icons/rx";
-import { FcCancel } from "react-icons/fc";
-import { IoEllipsisVertical } from "react-icons/io5";
-import GreenCheckmark from "../Modules/GreenCheckmark";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuiz } from "./reducer";
-import { Link } from "react-router-dom";
+import { publishQuiz, unPublishQuiz, deleteQuiz } from "./reducer";
+import { Link} from "react-router-dom";
+import QuizListButtons from "./QuizListButtons";
 
 export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
     // const [quizzes, setQuizzes] = useState("");
     const { cid } = useParams();
 
-    const { pathname } = useLocation();
+    //const { pathname } = useLocation();
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
 
     const dispatch = useDispatch();
 
     let noQuiz = false;
 
-    if(!quizzes) {
+    if (!quizzes) {
         noQuiz = true;
     }
+    console.log(quizzes)
 
     return (
         <div id="wd-assignments">
@@ -57,9 +54,12 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
                                         </div>
                                         <div className="wd-grid-col-right-sidebar p-3 me-0">
                                             <div className="float-end">
-                                                {quiz.published ? <GreenCheckmark /> : <FcCancel />}
-
-                                                <IoEllipsisVertical />
+                                                <QuizListButtons
+                                                    quizId={quiz._id}
+                                                    published={quiz.published}
+                                                    deleteQuiz={(quizId) => dispatch(deleteQuiz(quizId))}
+                                                    publishQuiz={(quizId) => dispatch(publishQuiz(quizId))}
+                                                    unPublishQuiz={(quizId) => dispatch(unPublishQuiz(quizId))} />
                                             </div>
                                         </div>
                                     </li>

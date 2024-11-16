@@ -1,17 +1,14 @@
-import { useLocation, useParams, useNavigate } from "react-router";
-import * as db from "../../Database";
+import { useParams, useNavigate } from "react-router";
+
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { addQuiz, updateQuiz } from "./reducer";
+import { updateQuiz } from "./reducer";
 
 
 export default function QuizzesEditor() {
     const { cid, qid } = useParams();
-    // const quizList = db.quizzes;
-    //const quiz = quizList.find(q => q._id == qid);
-    // const { pathname } = useLocation();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -59,7 +56,7 @@ export default function QuizzesEditor() {
         console.log("ADDING ASSIGNEMNET", quiz)
         navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${qid}`);
     }
-    const bool = quiz.shuffle_answers;
+
     return (
         <div id="wd-quiz-editor">
             <div className="float-end">
