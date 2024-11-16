@@ -21,7 +21,7 @@ export default function QuizzesEditor() {
         _id: "",
         title: "",
         course: "",
-        availability: "",
+        availability: "Closed",
         due_date: "",
         points: "",
         num_of_q: "",
@@ -40,6 +40,7 @@ export default function QuizzesEditor() {
         lock_questions_after_answering: "",
         avialble_date: "",
         until_date: "",
+        published: false,
     });
 
     useEffect(() => {

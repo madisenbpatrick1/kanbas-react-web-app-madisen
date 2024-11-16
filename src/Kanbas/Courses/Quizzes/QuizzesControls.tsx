@@ -3,9 +3,16 @@ import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { IoEllipsisVertical } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { addQuiz } from "./reducer";
 
 export default function QuizzesControls() {
     const { cid } = useParams();
+    const dispatch = useDispatch();
+
+    const handleSave = () => {
+        dispatch(addQuiz({ course: cid}))
+    }
     return (
         <div id="wd-assignment-controls" className="text-nowrap">
             <button id="wd-add-quizzes-btn" className="btn btn-lg btn-secondary me-1 float-end">
@@ -15,6 +22,7 @@ export default function QuizzesControls() {
                 <button
                     id="wd-add-assignment-btn"
                     className="btn btn-lg btn-danger me-1 float-end"
+                    onClick={handleSave}
                 >
                     <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                     Quiz

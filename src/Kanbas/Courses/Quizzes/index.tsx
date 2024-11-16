@@ -20,10 +20,16 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
 
     const dispatch = useDispatch();
 
+    let noQuiz = false;
+
+    if(!quizzes) {
+        noQuiz = true;
+    }
 
     return (
         <div id="wd-assignments">
             {canEdit && (<><QuizzesControls /><br /><hr /></>)}
+            {noQuiz && "click Add Quiz"}
             <div id="wd-assignments">
                 <ul id="wd-assignment-list" className="list-group rounded-0 w-100" >
                     <li className="wd-assignment-list-item list-group-item p-0 mb-5 fs-5 border-gray">
@@ -51,9 +57,8 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
                                         </div>
                                         <div className="wd-grid-col-right-sidebar p-3 me-0">
                                             <div className="float-end">
-                                                {/* TODO: move to its own file  */}
-                                                <FcCancel />
-                                                <GreenCheckmark />
+                                                {quiz.published ? <GreenCheckmark /> : <FcCancel />}
+
                                                 <IoEllipsisVertical />
                                             </div>
                                         </div>
