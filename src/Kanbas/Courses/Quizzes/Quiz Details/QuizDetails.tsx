@@ -19,6 +19,8 @@ import { useParams, useNavigate, useLocation, Route, Routes } from "react-router
 import * as db from "../../../Database";
 import QuizDetailsControls from "./QuizDetailsControls";
 import QuizzesEditor from "../Editor";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 // 
 
@@ -26,10 +28,45 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
     const { qid } = useParams();
     const dispatch = useParams();
     const navigate = useNavigate();
-    const quizzes = db.quizzes;
-    const quiz = quizzes.find((quiz) => quiz._id === qid);
-    const { pathname } = useLocation();
+    //const quizzes = db.quizzes;
+    // const quiz = quizzes.find((quiz) => quiz._id === qid);
+    // const { pathname } = useLocation();
+    const { quizzes } = useSelector((state: any) => state.quizzesReducer);
 
+    const [quiz, setQuiz] = useState({
+        _id: "",
+        title: "",
+        course: "",
+        availability: "",
+        due_date: "",
+        points: "",
+        num_of_q: "",
+        score: "",
+        description: "",
+        assigned_to: "",
+        quiz_type: "Graded Quiz",
+        assignment_group: "Quizzes",
+        shuffle_answers: true,
+        time_limit: 20,
+        multiple_attempts: false,
+        show_correct_answers: "",
+        access_code: "",
+        one_question_at_a_time: true,
+        webcam_required: false,
+        lock_questions_after_answering: "",
+        avialble_date: "",
+        until_date: "",
+    });
+
+    useEffect(() => {
+        if (qid) {
+            const current = quizzes.find((q: any) => q._id === qid);
+            if (current) {
+                setQuiz(current);
+            }
+        }
+    }, [qid, quizzes]);
+    
     return (
         // needs a faculty screen and a student screen 
         <div className="wd-quiz-details">

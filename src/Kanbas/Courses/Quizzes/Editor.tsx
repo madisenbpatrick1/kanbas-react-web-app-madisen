@@ -1,15 +1,64 @@
-import { useLocation, useParams } from "react-router";
+import { useLocation, useParams, useNavigate } from "react-router";
 import * as db from "../../Database";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { addQuiz, updateQuiz } from "./reducer";
 
 
 export default function QuizzesEditor() {
     const { cid, qid } = useParams();
-    const quizList = db.quizzes;
-    const quiz = quizList.find(q => q._id == qid);
-    const { pathname } = useLocation();
+    // const quizList = db.quizzes;
+    //const quiz = quizList.find(q => q._id == qid);
+    // const { pathname } = useLocation();
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+
+    const [quiz, setQuiz] = useState({
+        _id: "",
+        title: "",
+        course: "",
+        availability: "",
+        due_date: "",
+        points: "",
+        num_of_q: "",
+        score: "",
+        description: "",
+        assigned_to: "",
+        quiz_type: "Graded Quiz",
+        assignment_group: "Quizzes",
+        shuffle_answers: true,
+        time_limit: 20,
+        multiple_attempts: false,
+        show_correct_answers: "",
+        access_code: "",
+        one_question_at_a_time: true,
+        webcam_required: false,
+        lock_questions_after_answering: "",
+        avialble_date: "",
+        until_date: "",
+    });
+
+    useEffect(() => {
+        if (qid) {
+            const current = quizzes.find((q: any) => q._id === qid);
+            if (current) {
+                setQuiz(current);
+            }
+        }
+    }, [qid, quizzes]);
+
+    const handleSave = () => {
+
+        dispatch(updateQuiz(quiz));
+        console.log("update quiz", quiz)
+        console.log("ADDING ASSIGNEMNET", quiz)
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${qid}`);
+    }
+    const bool = quiz.shuffle_answers;
     return (
         <div id="wd-quiz-editor">
             <div className="float-end">
@@ -40,6 +89,7 @@ export default function QuizzesEditor() {
                         className="form-control mb-3"
                         id="wd-title"
                         value={quiz?.title}
+                        onChange={(e) => setQuiz({ ...quiz, title: e.target.value })}
                     />
                 </div>
                 <div className="mb-3">
@@ -48,6 +98,7 @@ export default function QuizzesEditor() {
                         className="form-control"
                         id="wd-description"
                         value={quiz?.description}
+                        onChange={(e) => setQuiz({ ...quiz, description: e.target.value })}
                     />
                 </div>
                 <div className="mb-3 row"> {/* Quiz Type */}
@@ -55,13 +106,14 @@ export default function QuizzesEditor() {
                         className="col-sm-2 col-form-label pt-0 text-end">
                         Quiz Type
                     </label>
-                    <div className="col-sm-10">
-                        <select className="form-select" id="wd-group">
+                    <div className="col-sm-10" >
+                        <select className="form-select" id="wd-group" onChange={(e) => setQuiz({ ...quiz, quiz_type: e.target.value })}>
                             <option value="PRACTICEQUIZ">PRACTICE QUIZ</option>
                             <option value="GRADEDSURVEY">GRADED SURVEY</option>
                             <option selected value="Graded Quiz">
                                 Graded Quiz</option>
                             <option value="UNGRADED SURVEY">UNGRADED SURVEY</option>
+
                         </select>
                     </div>
 
@@ -77,6 +129,7 @@ export default function QuizzesEditor() {
                             className="form-control"
                             id="wd-points"
                             value={quiz?.points}
+                            onChange={(e) => setQuiz({ ...quiz, points: e.target.value })}
                         />
                     </div>
                 </div>
@@ -86,7 +139,7 @@ export default function QuizzesEditor() {
                         Assignment Group
                     </legend>
                     <div className="col-sm-10">
-                        <select className="form-select" id="wd-group">
+                        <select className="form-select" id="wd-group" onChange={(e) => setQuiz({ ...quiz, assignment_group: e.target.value })}>
                             <option value="ASSIGNMENTS">ASSIGNMENTS</option>
                             <option selected value="QUIZZES">QUIZZES</option>
                             <option value="EXAMS">
@@ -100,35 +153,37 @@ export default function QuizzesEditor() {
                             Options
                         </label>
                         <div className="form-check pt-2">
-                            <input className="form-check-input" type="checkbox"
-                                id="wd-shuffle-answers" />
+                            <input className="form-check-input" type="checkbox" value={(quiz.shuffle_answers) ? "Yes" : "No"}
+                                id="wd-shuffle-answers" onChange={(e) => setQuiz({ ...quiz, shuffle_answers: e.target.checked })} />
                             <label htmlFor="wd-shuffle-answers" className="form-check-label">Shuffle Answers</label><br />
                         </div>
                         <div className="form-check pt-2 flex">
                             <input className="form-check-input" type="checkbox"
-                                id="wd-time-limit" />
+                                id="wd-time-limit" value={(quiz.time_limit)} />
                             <label htmlFor="wd-time-limit" className="form-check-label">Time Limit</label>
                             <input
                                 type="number"
                                 className="form-control"
                                 id="wd-points"
                                 value={quiz?.time_limit}
+                                onChange={(e) => setQuiz({ ...quiz, time_limit: e.target.valueAsNumber })}
                             />
                             minutes
                         </div>
                         <div className="row border p-3"> {/* Multiple Attempts */}
-                        <input className="form-check-input" type="checkbox"
+                            <input className="form-check-input" type="checkbox"
+                                value={(quiz.multiple_attempts) ? "Yes" : "No"} onChange={(e) => setQuiz({ ...quiz, multiple_attempts: e.target.checked })}
                                 id="wd-multiple-attempts" />
                             <label htmlFor="wd-multiple-attempts"
                                 className="col-sm-2 col-form-label pt-0 text-end">
                                 Multiple Attempts
                             </label>
-                            
+
                         </div>
                     </div>
                 </div>
 
-    
+
 
 
                 <div className="mb-3 row"> {/* Access Code */}
@@ -142,6 +197,7 @@ export default function QuizzesEditor() {
                             className="form-control"
                             id="wd-points"
                             value={quiz?.access_code}
+                            onChange={(e) => setQuiz({ ...quiz, access_code: e.target.value })}
                         />
                     </div>
                 </div>
@@ -150,39 +206,27 @@ export default function QuizzesEditor() {
                         className="col-sm-2 col-form-label pt-0 text-end">
                         One Question at a Time
                     </label>
-                    <div className="col-sm-10">
-                        <select className="form-select" id="wd-group">
-                            <option selected value="yes">
-                                Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
+                    <input className="form-check-input" type="checkbox" value={(quiz.one_question_at_a_time) ? "Yes" : "No"}
+                        id="wd-shuffle-answers" onChange={(e) => setQuiz({ ...quiz, one_question_at_a_time: e.target.checked })} />
+
                 </div>
                 <div className="mb-3 row"> {/* Webcam Required */}
                     <label htmlFor="wd-group"
                         className="col-sm-2 col-form-label pt-0 text-end">
                         Webcam Required
                     </label>
-                    <div className="col-sm-10">
-                        <select className="form-select" id="wd-group">
-                            <option value="yes">
-                                Yes</option>
-                            <option selected value="No">No</option>
-                        </select>
-                    </div>
+                    <input className="form-check-input" type="checkbox" value={(quiz.webcam_required) ? "Yes" : "No"}
+                        id="wd-webcam-required" onChange={(e) => setQuiz({ ...quiz, webcam_required: e.target.checked })} />
+
                 </div>
                 <div className="mb-3 row"> {/* Lock Questions After Answering  */}
                     <label htmlFor="wd-group"
                         className="col-sm-2 col-form-label pt-0 text-end">
                         Lock Questions After Answering
                     </label>
-                    <div className="col-sm-10">
-                        <select className="form-select" id="wd-group">
-                            <option value="yes">
-                                Yes</option>
-                            <option selected value="No">No</option>
-                        </select>
-                    </div>
+                    <input className="form-check-input" type="checkbox" value={(quiz.lock_questions_after_answering) ? "Yes" : "No"}
+                        id="wd-shuffle-answers" onChange={(e) => setQuiz({ ...quiz, lock_questions_after_answering: e.target.value })} />
+
                 </div>
                 <div className="mb-3 row">
                     <label htmlFor="wd-due-date"
@@ -193,6 +237,7 @@ export default function QuizzesEditor() {
                         className="form-select"
                         id="wd-due-date" type="date"
                         value={quiz?.due_date}
+                        onChange={(e) => setQuiz({ ...quiz, due_date: e.target.value })}
                     >
                     </input>
                 </div>
@@ -205,6 +250,7 @@ export default function QuizzesEditor() {
                         className="form-select"
                         id="wd-available-date" type="date"
                         value={quiz?.avialble_date}
+                        onChange={(e) => setQuiz({ ...quiz, avialble_date: e.target.value })}
                     >
                     </input>
                 </div>
@@ -217,6 +263,7 @@ export default function QuizzesEditor() {
                         className="form-select"
                         id="wd-until-date" type="date"
                         value={quiz?.until_date}
+                        onChange={(e) => setQuiz({ ...quiz, until_date: e.target.value })}
                     >
                     </input>
                 </div>
@@ -229,6 +276,7 @@ export default function QuizzesEditor() {
                     type="submit"
                     className="btn btn-danger me-1 float-end"
                     id="wd-assignment-save"
+                    onClick={handleSave}
                 >
                     Save
                 </button>
@@ -238,6 +286,7 @@ export default function QuizzesEditor() {
                     type="submit"
                     className="btn btn-danger me-1 float-end"
                     id="wd-assignment-save"
+                // TODO: CREATE A SAVE AND PUBLISH ON CLICK CALL 
                 >
                     Save and Publish
                 </button>
@@ -250,5 +299,5 @@ export default function QuizzesEditor() {
             </Link>
 
         </div>
-    )
+    );
 }
