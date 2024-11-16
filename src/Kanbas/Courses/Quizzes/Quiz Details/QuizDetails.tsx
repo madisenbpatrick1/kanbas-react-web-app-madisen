@@ -26,11 +26,7 @@ import { useState, useEffect } from "react";
 
 export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
     const { qid } = useParams();
-    const dispatch = useParams();
-    const navigate = useNavigate();
-    //const quizzes = db.quizzes;
-    // const quiz = quizzes.find((quiz) => quiz._id === qid);
-    // const { pathname } = useLocation();
+
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
 
     const [quiz, setQuiz] = useState({
@@ -54,7 +50,7 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
         one_question_at_a_time: true,
         webcam_required: false,
         lock_questions_after_answering: "",
-        avialble_date: "",
+        available_date: "",
         until_date: "",
     });
 
@@ -66,7 +62,7 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
             }
         }
     }, [qid, quizzes]);
-    
+
     return (
         // needs a faculty screen and a student screen 
         <div className="wd-quiz-details">
@@ -95,7 +91,6 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
                     <thead>
                         <tr className="table">
                             <th>Due</th>
-                            <th>For</th>
                             <th>Available</th>
                             <th>Until</th>
                         </tr>
@@ -103,8 +98,7 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
                     <tbody>
                         <tr>
                             <td>{quiz?.due_date}</td>
-                            <td>{quiz?.assignment_group}</td>
-                            <td>{quiz?.avialble_date}</td>
+                            <td>{quiz?.available_date}</td>
                             <td>{quiz?.until_date}</td>
                         </tr>
                     </tbody>
