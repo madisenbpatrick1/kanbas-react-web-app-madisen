@@ -57,7 +57,7 @@ export default function QuizzesEditor() {
         navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${qid}`);
     }
     const handleSavePublish = () => {
-        const updatedQuiz = {...quiz, published: true}
+        const updatedQuiz = { ...quiz, published: true }
         dispatch(updateQuiz(updatedQuiz));
         dispatch(publishQuiz(updatedQuiz._id));
         // console.log("update quiz", quiz)
@@ -79,11 +79,16 @@ export default function QuizzesEditor() {
             <div>
                 <ul className="nav nav-tabs mb-3">
                     <li className="nav-item">
-                        <a className="nav-link active" href="">Details</a>
-
+                        <Link to={`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`}
+                            className="nav-link active">
+                            Details
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" aria-current="page" href="">Questions</a>
+                        <Link to={`/Kanbas/Courses/${cid}/Quizzes/Editor/Questions/${qid}`}
+                            className="nav-link">
+                            Questions
+                        </Link>
 
                     </li>
                 </ul>
