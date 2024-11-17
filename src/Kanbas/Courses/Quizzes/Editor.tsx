@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { updateQuiz, publishQuiz } from "./reducer";
+import QuestionEditorScreen from "./QuestionEditorScreen";
+import { Route, Routes } from "react-router";
 
 
 export default function QuizzesEditor() {
@@ -67,6 +69,10 @@ export default function QuizzesEditor() {
 
     return (
         <div id="wd-quiz-editor">
+            <Routes>
+                <Route path="/Questions" element={<QuestionEditorScreen />} />
+
+            </Routes>
             <div className="float-end">
                 Points {quiz?.points}
                 {quiz?.availability}
@@ -85,7 +91,7 @@ export default function QuizzesEditor() {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={`/Kanbas/Courses/${cid}/Quizzes/Editor/Questions/${qid}`}
+                        <Link to={`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}/Questions`}
                             className="nav-link">
                             Questions
                         </Link>

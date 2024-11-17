@@ -67,7 +67,7 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
         // needs a faculty screen and a student screen 
         <div className="wd-quiz-details">
             <Routes>
-                <Route path="/Kanbas/Courses/:cid/Quizzes/Details/:qid/Editor" element={<QuizzesEditor />} />
+                <Route path="/Kanbas/Courses/:cid/Quizzes/Editor/:qid" element={<QuizzesEditor />} />
 
             </Routes>
             <QuizDetailsControls canEdit={canEdit} />
