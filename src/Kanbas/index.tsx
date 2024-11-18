@@ -6,6 +6,7 @@ import Courses from "./Courses"
 import "./styles.css";
 //import * as client from "./Courses/client";
 import * as userClient from "./Account/client";
+import * as courseClient from "./Courses/client";
 import { useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute"
 import Session from "./Account/Session"
@@ -37,7 +38,8 @@ export default function Kanbas() {
         const newCourse = await userClient.createCourse(course);
         setCourses([...courses, { ...course, newCourse }]);
     };
-    const deleteCourse = (courseId: any) => {
+    const deleteCourse = async (courseId: any) => {
+        const status = await courseClient.deleteCourse(courseId);
         setCourses(courses.filter((course) => course._id !== courseId));
     };
     const updateCourse = () => {
