@@ -22,15 +22,17 @@ export default function Modules({ canEdit }: { canEdit: boolean; }) {
         fetchModules();
     }, []);
 
+    const createModuleForCourse = async () => {
+        if (!cid) return;
+        const newModule = { name: moduleName, course: cid };
+        const module = await coursesClient.createModuleForCourse(cid, newModule);
+        dispatch(addModule(module));
+    };
+
 
     return (
         <div>
-            {canEdit && <><ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
-                dispatch(addModule({
-                    name: moduleName, course: cid
-                }));
-                setModuleName("");
-            }} /><br /><br /><br /></>}
+            {canEdit && <><ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={createModuleForCourse} /><br /><br /><br /></>}
             <ul is="wd-modules" className="list-group rounded-0 w-100">
                 {modules
                     .map((module: any) => (
