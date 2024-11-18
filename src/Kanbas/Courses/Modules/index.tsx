@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { setModules, addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import * as coursesClient from "../client";
+import * as modulesClient from "./client";
 
 export default function Modules({ canEdit }: { canEdit: boolean; }) {
     const { cid } = useParams();
@@ -27,6 +28,10 @@ export default function Modules({ canEdit }: { canEdit: boolean; }) {
         const newModule = { name: moduleName, course: cid };
         const module = await coursesClient.createModuleForCourse(cid, newModule);
         dispatch(addModule(module));
+    };
+    const removeModule = async (moduleId: string) => {
+        await modulesClient.deleteModule(moduleId);
+        dispatch(deleteModule(moduleId));
     };
 
 
@@ -53,13 +58,11 @@ export default function Modules({ canEdit }: { canEdit: boolean; }) {
                                         }}
                                         defaultValue={module.name} />
                                 )}
-                                {canEdit && <ModuleControlButtons
-                                    moduleId={module._id}
-                                    deleteModule={(moduleId) => {
-                                        dispatch(deleteModule(moduleId));
-                                    }}
-                                    editModule={(moduleId) => dispatch(editModule(moduleId))}
-                                />}
+                                {canEdit && <ModuleControlButtons moduleId={module._id}
+                                    deleteModule={(moduleId) => removeModule(moduleId)}
+                                    editModule={(moduleId) => dispatch(editModule(moduleId))} />
+
+                                }
                             </div>
                             {module.lessons && (
                                 <ul className="wd-lessons list-group rounded-0">
