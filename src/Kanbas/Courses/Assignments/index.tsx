@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteAssignment, setAssignments } from "./reducer";
 import { useState, useEffect } from "react";
 import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 
 export default function Assignments({ canEdit }: { canEdit: boolean; }) {
@@ -27,6 +28,11 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     useEffect(() => {
         fetchAssignments();
     }, []);
+
+    const removeAssignment = async (assignmentId: string) => {
+        await assignmentsClient.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+    }
 
     return (
         <div id="wd-assignments">
@@ -60,7 +66,7 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
                                                 <br /> Due May 13 at 11:59pm | 100pts</span></p>
                                         </div>
                                         <div className="wd-grid-col-right-sidebar">
-                                            {canEdit && <AssignmentListButtons assignmentId={assignment._id} deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />}
+                                            {canEdit && <AssignmentListButtons assignmentId={assignment._id} deleteAssignment={(assignmentId) => removeAssignment(assignmentId)} />}
                                         </div>
 
                                     </li>
