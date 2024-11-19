@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { addAssignment, updateAssignment } from "./reducer";
+import * as coursesClient from "../client";
 
 
 export default function AssignmentEditor() {
@@ -47,6 +48,12 @@ export default function AssignmentEditor() {
         navigate(`/Kanbas/Courses/${cid}/Assignments`);
     }
 
+    const createAssignmentForCourse = async () => {
+        if(!cid) return;
+        const newAssignment = {assignment: assignment, course: cid};
+        const a = await coursesClient.createAssignmentForCourse(cid, newAssignment);
+        dispatch(addAssignment(assignment));
+    }
 
     return (
         <div id="wd-assignments-editor">
@@ -215,7 +222,7 @@ export default function AssignmentEditor() {
                     type="submit"
                     className="btn btn-danger me-1 float-end"
                     id="wd-assignment-save"
-                    onClick={handleSave}
+                    onClick={createAssignmentForCourse}
                 >
                     Save
                 </button>

@@ -33,11 +33,11 @@ const assignmentsSlice = createSlice({
             );
         },
         updateAssignment: (state, { payload: assignment }) => {
-            // state.assignments = state.assignments.map((a: any) =>
-            //     a._id === assignment._id ? assignment : a
-            // );
+            state.assignments = state.assignments.map((a: any) =>
+                a._id === assignment._id ? assignment : a
+            ) as any;
             // TODO: come back to functionality not working 
-            state.assignments = [...state.assignments] as any;
+            // state.assignments = [...state.assignments] as any;
         
         },
 
