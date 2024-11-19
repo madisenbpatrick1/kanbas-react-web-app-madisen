@@ -8,3 +8,8 @@ export const deleteAssignment = async (assignmentId: string) => {
     return response.data;
 };
 
+export const updateAssignment = async (assignment: any) => {
+    const { data } = await axios.put(`${ASSIGNMENTS_API}/${assignment._id}`, assignment);
+    return data;
+};
+

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { addAssignment, updateAssignment } from "./reducer";
 import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 
 export default function AssignmentEditor() {
@@ -35,24 +36,28 @@ export default function AssignmentEditor() {
         }
     }, [aid, assignments]);
 
-    const handleSave = () => {
-        console.log(aid);
-        if (aid === "Editor") {
-            dispatch(addAssignment({ course: cid, ...assignment }));
-            console.log("ADDed ASSIGNEMNET", assignment._id)
-        } else {
-            dispatch(updateAssignment(assignment));
-            console.log("update ASSIGNEMNET", assignment)
-        }
-        console.log("ADDING ASSIGNEMNET", assignments)
-        navigate(`/Kanbas/Courses/${cid}/Assignments`);
-    }
+    
 
     const createAssignmentForCourse = async () => {
         if(!cid) return;
         const newAssignment = {assignment: assignment, course: cid};
         const a = await coursesClient.createAssignmentForCourse(cid, newAssignment);
         dispatch(addAssignment(assignment));
+    }
+    const saveAssignment = async (assignment: any) => {
+        await assignmentsClient.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+
+    }
+
+    const handleSave = () => {
+        console.log(aid);
+        if (aid === "Editor") {
+            createAssignmentForCourse();
+        } else {
+            saveAssignment(assignment);
+        }
+        navigate(`/Kanbas/Courses/${cid}/Assignments`);
     }
 
     return (
@@ -222,7 +227,7 @@ export default function AssignmentEditor() {
                     type="submit"
                     className="btn btn-danger me-1 float-end"
                     id="wd-assignment-save"
-                    onClick={createAssignmentForCourse}
+                    onClick={handleSave}
                 >
                     Save
                 </button>
