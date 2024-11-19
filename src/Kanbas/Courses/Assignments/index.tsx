@@ -6,7 +6,10 @@ import { FaRegEdit } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useLocation } from "react-router"
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
+import { useState, useEffect } from "react";
+import * as coursesClient from "../client";
+
 
 export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     const { cid } = useParams();
@@ -16,6 +19,14 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     const path = "#" + pathname + "/"
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
     const dispatch = useDispatch();
+
+    const fetchAssignments = async () => {
+        const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+    };
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
 
     return (
         <div id="wd-assignments">
@@ -29,7 +40,6 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
                             {canEdit && <AssignmentControlButtons />}
                         </div>
                         {assignments
-                            .filter((assignment: any) => assignment.course === cid)
                             .map((assignment: any) => (
 
                                 <ul className="wd-assignments-lessons list-group rounded-0">
