@@ -50,8 +50,8 @@ export default function TOC() {
                     Kanbas Server on GitHub
                 </a> </li>
             <li className="nav-item">
-                <a id="wd-k" href="https://kanbas-node-server-app-mp-c9fe14a9beff.herokuapp.com/" className="nav-link">
-                    Link to Heroku
+                <a id="wd-k" href="https://kanbas-node-server-app-dyn4.onrender.com" className="nav-link">
+                    Link to Render
                 </a> </li>
 
         </ul>
