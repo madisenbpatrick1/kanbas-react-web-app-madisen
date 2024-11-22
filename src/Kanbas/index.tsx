@@ -20,7 +20,8 @@ export default function Kanbas() {
     const fetchCourses = async () => {
         let courses = [];
         try {
-            courses = await userClient.findMyCourses();
+            courses = await courseClient.fetchAllCourses();
+            console.log("Fetched courses:", courses);
         } catch (error) {
             console.error(error);
         }
@@ -54,6 +55,7 @@ export default function Kanbas() {
             })
         );
     };
+    console.log("Courses:", courses);
 
     return (
 
