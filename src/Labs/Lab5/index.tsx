@@ -8,6 +8,7 @@ import WorkingWithObjects from "./WorkingWithObjects";
 import WorkingWithObjectsAsynchronously from "./WorkingWithObjectsAsynchronously";
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 export default function Lab5() {
+  // Lab5 Parameters, Arrays, Objects, HttpClient, WorkingWithArrays, WorkingWithArraysAsynchronously, WorkingWithObjectsAsynchronously
   return (
     <div id="wd-lab5">
       <h2>Lab 5</h2>
