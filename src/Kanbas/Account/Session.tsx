@@ -16,10 +16,10 @@ export default function Session({ children }: { children: any }) {
     };
     useEffect(() => {
         fetchProfile();
-    }, []);
+    },);
     if (!pending) {
         return children;
     }
-    
+
 }
 

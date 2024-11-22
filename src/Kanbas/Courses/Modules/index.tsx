@@ -3,7 +3,7 @@ import LessonControlButtons from "./LessonControlButtons";
 import ModuleControlButtons from "./ModuleControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 import { useParams } from "react-router";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { setModules, addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import * as coursesClient from "../client";
@@ -21,7 +21,7 @@ export default function Modules({ canEdit }: { canEdit: boolean; }) {
     };
     useEffect(() => {
         fetchModules();
-    }, []);
+    },);
 
     const createModuleForCourse = async () => {
         if (!cid) return;

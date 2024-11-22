@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 import { useLocation } from "react-router"
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAssignment, setAssignments } from "./reducer";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import * as coursesClient from "../client";
 import * as assignmentsClient from "./client";
 
@@ -27,7 +27,7 @@ export default function Assignments({ canEdit }: { canEdit: boolean; }) {
     };
     useEffect(() => {
         fetchAssignments();
-    }, []);
+    },);
 
     const removeAssignment = async (assignmentId: string) => {
         await assignmentsClient.deleteAssignment(assignmentId);
