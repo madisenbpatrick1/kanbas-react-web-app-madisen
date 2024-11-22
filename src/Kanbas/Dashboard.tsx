@@ -33,7 +33,7 @@ export default function Dashboard(
     };
     useEffect(() => {
         fetchEnrollments();
-    }, []);
+    },);
 
 
     const courseFilter = () => {
