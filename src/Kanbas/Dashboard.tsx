@@ -21,8 +21,6 @@ export default function Dashboard(
     // create a useEffect that calles findCoursesForEnrolledUser 
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
-    console.log("Enrollments:", enrollments);
-
     const dispatch = useDispatch();
     const [showAllCourses, setShowAllCourses] = useState(false);
 
@@ -30,7 +28,6 @@ export default function Dashboard(
         setShowAllCourses((p: any) => !p);
     };
     const fetchEnrollments = async () => {
-        console.log("Fetching enrollments...");
         const enrollments1 = await courseClient.findEnrollments();
         dispatch(setEnrollments(enrollments1));
     };

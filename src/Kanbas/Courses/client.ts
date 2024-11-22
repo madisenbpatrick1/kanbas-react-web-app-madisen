@@ -50,17 +50,13 @@ export const findEnrollments = async () => {
 }
 
 export const enrollUserInCourse = async ( userId: string, courseId: string,) => {
-    console.log(`Enrolling user ${userId} in course ${courseId}`);
     const response = await axios.post(`${COURSES_API}/${courseId}/enroll/${userId}` );
-    console.log(`Enrollment response: ${response}`);
     return response.data;
 }
 
 
 export const unenrollUserInCourse = async ( userId: string, courseId: string,) => {
-    console.log(`unEnrolling user ${userId} in course ${courseId}`);
     const response = await axios.post(`${COURSES_API}/${courseId}/unenroll/${userId}` );
-    console.log(`unEnrollment response: ${response}`);
     return response.data;
 }
 

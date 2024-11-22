@@ -51,7 +51,6 @@ export default function AssignmentEditor() {
     }
 
     const handleSave = () => {
-        console.log(aid);
         if (aid === "Editor") {
             createAssignmentForCourse();
         } else {

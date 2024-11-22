@@ -21,7 +21,6 @@ export default function Kanbas() {
         let courses = [];
         try {
             courses = await courseClient.fetchAllCourses();
-            console.log("Fetched courses:", courses);
         } catch (error) {
             console.error(error);
         }
@@ -41,10 +40,12 @@ export default function Kanbas() {
     };
     const deleteCourse = async (courseId: any) => {
         const status = await courseClient.deleteCourse(courseId);
+        console.log("Deleted:", status);
         setCourses(courses.filter((course) => course._id !== courseId));
     };
     const updateCourse = async () => {
         const status2 = await courseClient.updateCourse(course);
+        console.log("Updated:", status2);
         setCourses(
             courses.map((c) => {
                 if (c._id === course._id) {
@@ -55,7 +56,6 @@ export default function Kanbas() {
             })
         );
     };
-    console.log("Courses:", courses);
 
     return (
 
