@@ -7,18 +7,18 @@ import QuizzesEditor from "../Editor";
 
 
 export default function QuizDetailsControls({ canEdit }: { canEdit: boolean; }) {
-    const {cid, aid, qid} = useParams();
+    const { cid, aid, qid } = useParams();
     const { pathname } = useLocation();
-    
-    
+
+
     // const path = "#" + pathname + "/Details/"
     return (
         <div className="float">
             {canEdit && <div>
-                <button className="btn btn-lg float-center btn-primary me-3 ">
-
+                <Link to={`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`}><button className="btn btn-lg float-center btn-primary me-3 ">
                     Preview
-                </button>
+                </button></Link>
+
                 <Link to={`/Kanbas/Courses/${cid}/Quizzes/Editor/${qid}`}>
                     <button className="btn btn-lg float-center btn-primary"><FaPencil /> Edit</button>
                 </Link>

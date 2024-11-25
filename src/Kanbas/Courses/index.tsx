@@ -15,6 +15,7 @@ import ProtectedRouteQuizzes from "./Quizzes/ProtectedRoute";
 import ProtectedRouteQuizDetails from "./Quizzes/Quiz Details/ProtectedRoute";
 import QuizzesEditor from "./Quizzes/Editor";
 import QuizQuestions from "./Quizzes/Quiz Questions/QuizQuestions";
+import QuizPreview from "./Quizzes/Quiz Details/QuizPreview";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
@@ -41,6 +42,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Quizzes/Details/:qid" element={<ProtectedRouteQuizDetails><QuizDetails canEdit={false} /></ProtectedRouteQuizDetails>} />
                         <Route path="Quizzes/Editor/:qid" element={<QuizzesEditor  />} />
                         <Route path="Quizzes/Editor/:qid/Questions" element={<QuizQuestions />} />
+                        <Route path="Quizzes/Preview/:qid" element={<QuizPreview/>} />
                         <Route path="People" element={<PeopleTable />} />
                     </Routes>
                 </div>
