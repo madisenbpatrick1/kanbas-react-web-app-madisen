@@ -20,7 +20,7 @@ export default function Users() {
         });
         setUsers([...users, user]);
     };
-
+console.log(name)
     const filterUsersByName = async (name: string) => {
         setName(name);
         if (name) {

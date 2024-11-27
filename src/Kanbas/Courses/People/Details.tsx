@@ -3,7 +3,6 @@ import { FaPencil } from "react-icons/fa6";
 import { FaCheck, FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 import * as client from "../../Account/client";
 
 export default function PeopleDetails() {
@@ -32,7 +31,7 @@ export default function PeopleDetails() {
     };
     useEffect(() => {
         if (uid) fetchUser();
-    }, [uid]);
+    }, );
     if (!uid) return null;
     return (
         <div className="wd-people-details position-fixed top-0 end-0 bottom-0 bg-white p-4 shadow w-25">
