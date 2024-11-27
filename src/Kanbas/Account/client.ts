@@ -43,6 +43,18 @@ export const findAllUsers = async () => {
     return response.data;
 };
 
+export const findUsersByRole = async (role: string) => {
+    const response = await
+        axios.get(`${USERS_API}?role=${role}`);
+    return response.data;
+};
+
+export const findUsersByPartialName = async (name: string) => {
+    const response = await axios.get(`${USERS_API}?name=${name}`);
+    return response.data;
+};
+
+
 
 
 
