@@ -64,6 +64,12 @@ export const deleteUser = async (userId: string) => {
     return response.data;
 };
 
+export const createUser = async (user: any) => {
+    const response = await axios.post(`${USERS_API}`, user);
+    return response.data;
+};
+
+
 
 
 
