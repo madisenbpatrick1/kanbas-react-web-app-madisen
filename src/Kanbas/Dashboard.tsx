@@ -151,6 +151,7 @@ export default function Dashboard(
                                                 onClick={(event) => {
                                                     event.preventDefault();
                                                     setCourse(course);
+                                                    //updateCourse();
                                                 }}
                                                 className="btn btn-warning me-2 float-end" >
                                                 Edit
