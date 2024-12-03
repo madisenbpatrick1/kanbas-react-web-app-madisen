@@ -4,6 +4,7 @@ import Dashboard from "./Dashboard"
 import KanbasNavigation from "./Navigation"
 import Courses from "./Courses"
 import "./styles.css";
+//import * as client from "./Courses/client";
 import * as userClient from "./Account/client";
 import * as courseClient from "./Courses/client";
 import { useState } from "react";
