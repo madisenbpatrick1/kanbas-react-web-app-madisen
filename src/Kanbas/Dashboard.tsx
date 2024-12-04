@@ -9,7 +9,8 @@ import * as courseClient from "../../src/Kanbas/Courses/client";
 
 export default function Dashboard(
     { courses, course, setCourse, addNewCourse, deleteCourse, updateCourse, canEdit, roleStudent, enrolling, setEnrolling, updateEnrollment }: {
-        courses: any[]; course: any;
+        courses: any[]; 
+        course: any;
         setCourse: (course: any) => void;
         addNewCourse: () => void;
         deleteCourse: (course: any) => void;

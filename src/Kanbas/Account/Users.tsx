@@ -67,7 +67,7 @@ console.log(name)
                 <option value="ADMIN">Administrators</option>
             </select>
 
-            <PeopleTable users={users} />
+            <PeopleTable users={users}/>
         </div>
     );
 }
