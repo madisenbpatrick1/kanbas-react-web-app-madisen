@@ -8,7 +8,7 @@ import * as courseClient from "../../src/Kanbas/Courses/client";
 
 
 export default function Dashboard(
-    { courses, course, setCourse, addNewCourse, deleteCourse, updateCourse, canEdit, roleStudent, enrolling, setEnrolling }: {
+    { courses, course, setCourse, addNewCourse, deleteCourse, updateCourse, canEdit, roleStudent, enrolling, setEnrolling, updateEnrollment }: {
         courses: any[]; course: any;
         setCourse: (course: any) => void;
         addNewCourse: () => void;
@@ -18,11 +18,12 @@ export default function Dashboard(
         roleStudent: boolean;
         enrolling: boolean;
         setEnrolling: (enrolling: boolean) => void;
+        updateEnrollment: (courseId: string, enrolled: boolean) => void
     }
 ) {
     // create a useEffect that calles findCoursesForEnrolledUser 
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    
+
     return (
         <div id="wd-dashboard">
 
@@ -54,10 +55,6 @@ export default function Dashboard(
                     onChange={(e) => setCourse({ ...course, description: e.target.value })} />
                 <hr />
             </>}
-            {/* {roleStudent &&
-                <button className="btn btn-primary float-end" onClick={showCourses}>
-                    Enrollments
-                </button>} */}
             <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
 
             <div id="wd-dashboard-courses" className="row">
@@ -73,7 +70,14 @@ export default function Dashboard(
                                     <div className="card-body">
                                         <h5 className="wd-dashboard-course-title card-title">
                                             {enrolling && (
-                                                <button className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                                                <button
+                                                    onClick={(event) => {
+                                                        event.preventDefault();
+                                                        updateEnrollment(course._id, !course.enrolled);
+                                                    }}
+
+                                                    className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`
+                                                    } >
                                                     {course.enrolled ? "Unenroll" : "Enroll"}
                                                 </button>
                                             )}
