@@ -17,8 +17,7 @@ export default function AssignmentEditor() {
     // const assignment = assignments.find((assignment) => assignment._id === aid);
 
     const [assignment, setAssignment] = useState({
-        _id: "",
-        title:"",
+        title: "",
         description: "",
         points: 100,
         dueDate: "",
@@ -36,11 +35,16 @@ export default function AssignmentEditor() {
         }
     }, [aid, assignments]);
 
-    
+
 
     const createAssignmentForCourse = async () => {
-        if(!cid) return;
-        const newAssignment = {assignment: assignment, course: cid};
+        if (!cid) return;
+        const newAssignment = {
+            title: assignment.title,
+            description: assignment.description,
+            course: cid,
+            points: assignment.points,
+        };
         const a = await coursesClient.createAssignmentForCourse(cid, newAssignment);
         console.log("Created assignment:", a);
         dispatch(addAssignment(assignment));
