@@ -16,11 +16,30 @@ import ProtectedRouteQuizDetails from "./Quizzes/Quiz Details/ProtectedRoute";
 import QuizzesEditor from "./Quizzes/Editor";
 import QuizQuestions from "./Quizzes/Quiz Questions/QuizQuestions";
 import QuizPreview from "./Quizzes/Quiz Details/QuizPreview";
+import * as courseClient from "./client";
+import { useState, useEffect } from "react";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);
     const { pathname } = useLocation();
+
+    // ADD SOMETHING HERE TO INPUT THE USER INPUT INTO THE PEOPLE TABLE 
+
+    const [users, setUsers] = useState<any[]>([]);
+
+    const fetchUsers = async () => {
+        try {
+            const users = await courseClient.findUsersForCourse(course._id);
+            setUsers(users);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchUsers();
+    }, [users]);
     return (
         <div id="wd-courses">
             <h2 className="text-danger">
@@ -43,7 +62,8 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Quizzes/Editor/:qid" element={<QuizzesEditor  />} />
                         <Route path="Quizzes/Editor/:qid/Questions" element={<QuizQuestions />} />
                         <Route path="Quizzes/Preview/:qid" element={<QuizPreview/>} />
-                        <Route path="People" element={<PeopleTable />} />
+                        <Route path="People" element={<PeopleTable users={users}/>} />
+
                     </Routes>
                 </div>
             </div>
