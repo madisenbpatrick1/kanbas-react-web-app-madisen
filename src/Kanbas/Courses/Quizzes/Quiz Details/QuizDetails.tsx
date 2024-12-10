@@ -19,15 +19,16 @@ import { useParams, useNavigate, useLocation, Route, Routes } from "react-router
 import * as db from "../../../Database";
 import QuizDetailsControls from "./QuizDetailsControls";
 import QuizzesEditor from "../Editor";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-// 
 
 export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
-    const { qid } = useParams();
+    const { cid, qid } = useParams();
 
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+
+    const dispatch = useDispatch();
 
     const [quiz, setQuiz] = useState({
         _id: "",
@@ -62,6 +63,7 @@ export default function QuizDetails({ canEdit }: { canEdit: boolean; }) {
             }
         }
     }, [qid, quizzes]);
+
 
     return (
         // needs a faculty screen and a student screen 

@@ -3,9 +3,13 @@ import QuizzesControls from "./QuizzesControls";
 import { useParams } from "react-router";
 import { RxRocket } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { publishQuiz, unPublishQuiz, deleteQuiz } from "./reducer";
+import { publishQuiz, unPublishQuiz, deleteQuiz, setQuizzes, addQuiz } from "./reducer";
 import { Link} from "react-router-dom";
 import QuizListButtons from "./QuizListButtons";
+import { useState, useEffect } from "react";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
+
 
 export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
     // const [quizzes, setQuizzes] = useState("");
@@ -15,6 +19,30 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
 
     const dispatch = useDispatch();
+
+    const newQuiz = {
+        title: "New Quiz",
+        course: cid,
+        availability: "Closed",
+        due_date: "",
+        points: 100,
+    };
+
+    const removeQuiz = async (quizId: string) => {
+        await assignmentsClient.deleteQuiz(quizId);
+        dispatch(deleteQuiz(quizId));
+    }
+
+    const fetchQuizzes = async () => {
+        const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
+        dispatch(setQuizzes(quizzes));
+    };
+
+    useEffect(() => {
+        fetchQuizzes();
+    },);
+    
+    
 
     let noQuiz = false;
 
@@ -35,7 +63,7 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
                             Assignment Quizzes
                         </div>
                         {quizzes
-                            .filter((quiz: any) => quiz.course === cid).map((quiz: any) => (
+                           .map((quiz: any) => (
                                 <ul className="wd-assignments-lessons list-group rounded-0">
                                     <li className="wd-lesson list-group-item p-3 ps-1">
                                         <div className="wd-grid-col-left-sidebar">
@@ -57,7 +85,7 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
                                                 <QuizListButtons
                                                     quizId={quiz._id}
                                                     published={quiz.published}
-                                                    deleteQuiz={(quizId) => dispatch(deleteQuiz(quizId))}
+                                                    deleteQuiz={(quizId) => deleteQuiz(quizId) }
                                                     publishQuiz={(quizId) => dispatch(publishQuiz(quizId))}
                                                     unPublishQuiz={(quizId) => dispatch(unPublishQuiz(quizId))} />
                                             </div>
