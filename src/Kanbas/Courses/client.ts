@@ -45,21 +45,6 @@ export const createAssignmentForCourse = async (courseId: string, assignment: an
     return response.data;
 };
 
-export const findEnrollments = async () => {
-    const response = await axios.get(`${COURSES_API}/enrollments`);
-    return response.data;
-}
-
-export const enrollUserInCourse = async (userId: string, courseId: string,) => {
-    const response = await axios.post(`${COURSES_API}/${courseId}/enroll/${userId}`);
-    return response.data;
-}
-
-
-export const unenrollUserInCourse = async (userId: string, courseId: string,) => {
-    const response = await axios.post(`${COURSES_API}/${courseId}/unenroll/${userId}`);
-    return response.data;
-}
 
 export const createCourse = async (course: any) => {
     const { data } = await axiosWithCredentials.post(COURSES_API, course);
