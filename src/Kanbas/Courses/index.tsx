@@ -9,6 +9,13 @@ import { FaAlignJustify } from "react-icons/fa";
 import ProtectedRoute from "./Assignments/ProtectedRoute";
 import ProtectedRouteModules from "./Modules/ModulesProtectedRoute";
 import ProtectedRouteHome from "./Home/HomeProtectedRoute";
+import Quizzes from "./Quizzes";
+import QuizDetails from "./Quizzes";
+import ProtectedRouteQuizzes from "./Quizzes/ProtectedRoute";
+import ProtectedRouteQuizDetails from "./Quizzes/Quiz Details/ProtectedRoute";
+import QuizzesEditor from "./Quizzes/Editor";
+import QuizQuestions from "./Quizzes/Quiz Questions/QuizQuestions";
+import QuizPreview from "./Quizzes/Quiz Details/QuizPreview";
 import * as courseClient from "./client";
 import { useState, useEffect } from "react";
 
@@ -50,6 +57,11 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Modules" element={<ProtectedRouteModules><Modules canEdit={false} /></ProtectedRouteModules>} />
                         <Route path="Assignments" element={<ProtectedRoute><Assignment canEdit={false} /></ProtectedRoute>} />
                         <Route path="Assignments/:aid" element={<AssignmentEditor />} />
+                        <Route path="Quizzes" element={<ProtectedRouteQuizzes><Quizzes canEdit={false} /></ProtectedRouteQuizzes>} />
+                        <Route path="Quizzes/Details/:qid" element={<ProtectedRouteQuizDetails><QuizDetails canEdit={false} /></ProtectedRouteQuizDetails>} />
+                        <Route path="Quizzes/Editor/:qid" element={<QuizzesEditor  />} />
+                        <Route path="Quizzes/Editor/:qid/Questions" element={<QuizQuestions />} />
+                        <Route path="Quizzes/Preview/:qid" element={<QuizPreview/>} />
                         <Route path="People" element={<PeopleTable users={users}/>} />
 
                     </Routes>

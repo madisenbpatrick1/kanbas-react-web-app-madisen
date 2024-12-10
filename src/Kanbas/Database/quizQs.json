@@ -1,0 +1,32 @@
+[
+    {
+        "_id": "Q101", 
+        "questions": [
+            {
+                "_id": "q1",
+                "type": "Multiple Choice",
+                "title": "What is the capital of France?",
+                "questionText": "Select the correct capital of France from the options below.",
+                "points": 5,
+                "correctAnswers": ["Paris"],
+                "choices": ["Paris", "London", "Rome", "Berlin"]
+              },
+              {
+                "_id": "q2",
+                "type": "Fill in the Blank",
+                "title": "The chemical symbol for water is?",
+                "questionText": "Fill in the blank with the correct chemical symbol for water.",
+                "points": 5,
+                "correctAnswers": ["H2O", "h2o"]
+              },
+              {
+                "_id": "q3",
+                "type": "True/False",
+                "title": "The Earth is flat.",
+                "questionText": "Determine if the following statement is true or false.",
+                "points": 3,
+                "correctAnswers": [false]
+              }
+        ]
+    }
+]
