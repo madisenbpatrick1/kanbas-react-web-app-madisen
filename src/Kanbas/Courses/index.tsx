@@ -9,11 +9,30 @@ import { FaAlignJustify } from "react-icons/fa";
 import ProtectedRoute from "./Assignments/ProtectedRoute";
 import ProtectedRouteModules from "./Modules/ModulesProtectedRoute";
 import ProtectedRouteHome from "./Home/HomeProtectedRoute";
+import * as courseClient from "./client";
+import { useState, useEffect } from "react";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);
     const { pathname } = useLocation();
+
+    // ADD SOMETHING HERE TO INPUT THE USER INPUT INTO THE PEOPLE TABLE 
+
+    const [users, setUsers] = useState<any[]>([]);
+
+    const fetchUsers = async () => {
+        try {
+            const users = await courseClient.findUsersForCourse(course._id);
+            setUsers(users);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchUsers();
+    }, [users]);
     return (
         <div id="wd-courses">
             <h2 className="text-danger">
@@ -31,7 +50,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Modules" element={<ProtectedRouteModules><Modules canEdit={false} /></ProtectedRouteModules>} />
                         <Route path="Assignments" element={<ProtectedRoute><Assignment canEdit={false} /></ProtectedRoute>} />
                         <Route path="Assignments/:aid" element={<AssignmentEditor />} />
-                        <Route path="People" element={<PeopleTable />} />
+                        <Route path="People" element={<PeopleTable users={users}/>} />
 
                     </Routes>
                 </div>
