@@ -40,7 +40,12 @@ export default function AssignmentEditor() {
 
     const createAssignmentForCourse = async () => {
         if(!cid) return;
-        const newAssignment = {assignment: assignment, course: cid};
+        const newAssignment = {
+            title: assignment.title,
+            description: assignment.description,
+            course: cid, 
+            points: assignment.points,
+        };
         const a = await coursesClient.createAssignmentForCourse(cid, newAssignment);
         console.log("Created assignment:", a);
         dispatch(addAssignment(assignment));
