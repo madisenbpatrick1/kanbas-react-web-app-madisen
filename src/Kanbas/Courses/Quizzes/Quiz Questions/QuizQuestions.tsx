@@ -8,6 +8,7 @@ import MultipleChoiceEditor from "./MultipleChoiceEditor";
 import TrueFalseEditor from "./TrueFalseEditor";
 import FillInTheBlankEditor from "./FillInTheBlankEditor";
 import * as assignmentsClient from "../client";
+import { updateQuiz } from "../reducer";
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
@@ -39,7 +40,7 @@ export default function QuizDetails() {
         available_date: "",
         until_date: "",
         published: false,
-        questions: [],
+        questions:[] as any[],
     });
 
     const [questions, setQuestions] = useState<any[]>([]);
@@ -47,7 +48,9 @@ export default function QuizDetails() {
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
 
     // Calculate total points
-    const totalPoints = questions.reduce((sum, question) => sum + (question.points || 0), 0);
+    // const totalPoints = questions.reduce((sum, question) => sum + (question.points || 0), 0);
+    const calculateTotalPoints = (questionsArray: any[]) =>
+        questionsArray.reduce((sum, question) => sum + (question.points || 0), 0);
 
     useEffect(() => {
         if (qid) {
@@ -59,6 +62,16 @@ export default function QuizDetails() {
         }
     }, [qid, quizzes]);
 
+    const updateTotalPoints = async (updatedQuestions: any[]) => {
+        const totalPoints = calculateTotalPoints(updatedQuestions);
+        const num_of_q = updatedQuestions.length.toString();
+        const updatedQuiz = { ...quiz, questions: updatedQuestions, points: totalPoints, num_of_q: num_of_q };
+
+        setQuiz(updatedQuiz);
+        await assignmentsClient.updateQuiz(updatedQuiz);
+        dispatch(updateQuiz(updatedQuiz));
+    };
+
     const handleAddQuestion = async (type: string) => {
         const newQuestion = {
             // _id: Date.now().toString(), // Unique ID
@@ -67,32 +80,28 @@ export default function QuizDetails() {
             questionText: "",
             points: 1,
             correctAnswers: [],
-            choices:[],
+            choices: [],
         };
 
-        const updatedQuiz = {...quiz, questions: [...quiz.questions, newQuestion] };
-        await assignmentsClient.updateQuiz(updatedQuiz);
-        setQuestions([...questions, newQuestion]);
-        
+        //onst updatedQuiz = { ...quiz, questions: [...quiz.questions, newQuestion] };
+        //setQuestions([...questions, newQuestion]);
+        // awaitUpdate
+       // await assignmentsClient.updateQuiz(updatedQuiz);
+       const updatedQuestions = [...questions, newQuestion];
+       setQuestions(updatedQuestions);
+       await updateTotalPoints(updatedQuestions);
+
+
         setCurrentQuestion(newQuestion);
     };
 
     const handleSaveQuestion = async (updatedQuestion: any) => {
-        // update the questions array 
-        const updateQuestions = questions.map((q) => (q._id === updatedQuestion._id? updatedQuestion : q));
-
-        const updatedQuiz = {
-            ...quiz, 
-            questions: updateQuestions,
-        }
-
-        setQuestions((prev) =>
-            prev.map((q) => (q._id === updatedQuestion._id ? updatedQuestion : q))
+         const updatedQuestions = questions.map((q) =>
+            q._id === updatedQuestion._id ? updatedQuestion : q
         );
-        //setQuiz(updatedQuiz);
 
-        await assignmentsClient.updateQuiz(updatedQuiz);
-
+        setQuestions(updatedQuestions);
+        await updateTotalPoints(updatedQuestions);
 
         setEditingQuestionId(null);
         setCurrentQuestion(null);
@@ -119,10 +128,16 @@ export default function QuizDetails() {
         setCurrentQuestion(updatedQuestion);
     };
 
+    const handleRemoveQuestion = async (questionId: string) => {
+        const updatedQuestions = questions.filter((q) => q._id !== questionId);
+        setQuestions(updatedQuestions);
+        await updateTotalPoints(updatedQuestions);
+    };
+
     return (
         <div>
             <div className="float-end">
-                Points {totalPoints} | {quiz?.availability}
+                Points {quiz.points} | {quiz?.availability}
                 <button className="btn btn-primary">
                     <FaEllipsisVertical />
                 </button>
@@ -158,7 +173,7 @@ export default function QuizDetails() {
 
             <div className="mt-4">
                 {questions.map((question) => (
-                    <div key={question._id} className="mb-3 border">
+                    <div key={question._id} className=" mb-3 border p-3">
                         {editingQuestionId === question._id ? (
                             <div className="p-2">
                                 <div className="d-flex align-items-center mb-3">
@@ -229,13 +244,19 @@ export default function QuizDetails() {
                                     {question.points} Points
                                 </span>
                                 <button
-                                    className="btn btn-link ms-2"
+                                    className="btn btn-primary btn-sm ms-2 float-end"
                                     onClick={() => {
                                         setEditingQuestionId(question._id);
                                         setCurrentQuestion(question);
                                     }}
                                 >
                                     Edit
+                                </button>
+                                <button
+                                    className="btn btn-danger btn-sm ms-2 float-end"
+                                    onClick={() => handleRemoveQuestion(question._id)}
+                                >
+                                    Remove
                                 </button>
                             </div>
                         )}
