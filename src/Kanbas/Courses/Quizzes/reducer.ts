@@ -28,14 +28,14 @@ const quizzesSlice = createSlice({
             state.quizzes = state.quizzes.filter((q: any) => q._id!== quizId) as any;
         },
         updateQuiz: (state, { payload: quiz }) => {
-            // state.quizzes = state.quizzes.map((q: any) =>
-            //     q._id === quiz._id? quiz : q
-            // );
+            state.quizzes = state.quizzes.map((q: any) =>
+                q._id === quiz._id? quiz : q
+            ) as any;
         },
         publishQuiz: (state, { payload: quizId})=> {
             // const quiz = state.quizzes.find((q) => q._id!== quizId);
             // if (quiz) {
-            //     quiz?.published = true;
+            //     quiz.published = true;
             // }
         },
         unPublishQuiz: (state, {payload: quizId}) => {

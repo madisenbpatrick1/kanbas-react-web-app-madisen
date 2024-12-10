@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { updateQuiz, publishQuiz } from "./reducer";
+import * as assignmentsClient from "./client";
 
 export default function QuizzesEditor() {
     const { cid, qid } = useParams();
@@ -37,6 +38,7 @@ export default function QuizzesEditor() {
         available_date: "",
         until_date: "",
         published: false,
+        questions: [],
     });
 
     useEffect(() => {
@@ -48,19 +50,17 @@ export default function QuizzesEditor() {
         }
     }, [qid, quizzes]);
 
-    const handleSave = () => {
-
+    const handleSave = async () => {
+        await assignmentsClient.updateQuiz(quiz);
         dispatch(updateQuiz(quiz));
-        console.log("update quiz", quiz)
-        console.log("ADDING ASSIGNEMNET", quiz)
         navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${qid}`);
     }
-    const handleSavePublish = () => {
-        const updatedQuiz = { ...quiz, published: true }
+    const handleSavePublish = async () => {
+        const updatedQuiz = { ...quiz, published: true, 
+            availability: "Open" };
+        await assignmentsClient.updateQuiz(updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
         dispatch(publishQuiz(updatedQuiz._id));
-        // console.log("update quiz", quiz)
-        console.log("ADDING ASSIGNEMNET", updateQuiz)
         navigate(`/Kanbas/Courses/${cid}/Quizzes/`);
     }
 
@@ -301,7 +301,6 @@ export default function QuizzesEditor() {
                     className="btn btn-danger me-1 float-end"
                     id="wd-assignment-save"
                     onClick={handleSavePublish}
-                // TODO: CREATE A SAVE AND PUBLISH ON CLICK CALL 
                 >
                     Save and Publish
                 </button>

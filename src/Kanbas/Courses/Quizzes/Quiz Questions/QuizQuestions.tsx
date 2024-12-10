@@ -7,6 +7,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import MultipleChoiceEditor from "./MultipleChoiceEditor";
 import TrueFalseEditor from "./TrueFalseEditor";
 import FillInTheBlankEditor from "./FillInTheBlankEditor";
+import * as assignmentsClient from "../client";
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
@@ -19,7 +20,25 @@ export default function QuizDetails() {
         title: "",
         course: "",
         availability: "Closed",
+        due_date: "",
         points: "",
+        num_of_q: "",
+        score: "",
+        description: "",
+        assigned_to: "",
+        quiz_type: "Graded Quiz",
+        assignment_group: "Quizzes",
+        shuffle_answers: true,
+        time_limit: 20,
+        multiple_attempts: false,
+        show_correct_answers: "",
+        access_code: "",
+        one_question_at_a_time: true,
+        webcam_required: false,
+        lock_questions_after_answering: false,
+        available_date: "",
+        until_date: "",
+        published: false,
         questions: [],
     });
 
@@ -40,30 +59,41 @@ export default function QuizDetails() {
         }
     }, [qid, quizzes]);
 
-    const handleAddQuestion = (type: string) => {
+    const handleAddQuestion = async (type: string) => {
         const newQuestion = {
-            _id: Date.now().toString(), // Unique ID
+            // _id: Date.now().toString(), // Unique ID
             type,
             title: "",
             questionText: "",
             points: 1,
-            ...(type === "Multiple Choice" && {
-                choices: [
-                    { _id: "1", text: "", isCorrect: false },
-                    { _id: "2", text: "", isCorrect: false },
-                ],
-            }),
-            ...(type === "True/False" && { correctAnswer: null }),
+            correctAnswers: [],
+            choices:[],
         };
+
+        const updatedQuiz = {...quiz, questions: [...quiz.questions, newQuestion] };
+        await assignmentsClient.updateQuiz(updatedQuiz);
         setQuestions([...questions, newQuestion]);
-        //setEditingQuestionId(newQuestion._id);
+        
         setCurrentQuestion(newQuestion);
     };
 
-    const handleSaveQuestion = (updatedQuestion: any) => {
+    const handleSaveQuestion = async (updatedQuestion: any) => {
+        // update the questions array 
+        const updateQuestions = questions.map((q) => (q._id === updatedQuestion._id? updatedQuestion : q));
+
+        const updatedQuiz = {
+            ...quiz, 
+            questions: updateQuestions,
+        }
+
         setQuestions((prev) =>
             prev.map((q) => (q._id === updatedQuestion._id ? updatedQuestion : q))
         );
+        //setQuiz(updatedQuiz);
+
+        await assignmentsClient.updateQuiz(updatedQuiz);
+
+
         setEditingQuestionId(null);
         setCurrentQuestion(null);
     };

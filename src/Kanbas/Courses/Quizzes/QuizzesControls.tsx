@@ -13,7 +13,29 @@ export default function QuizzesControls(
     const navigate = useNavigate();
     const createQuiz = async () => {
         if(!cid) return;
-        const newQ = {title:"New Quiz", course: cid};
+        const newQ = {
+            title:"New Quiz", 
+            course: cid,
+            availability: "Closed",
+            due_date: "",
+            points: 100,
+            num_of_q: 0,
+            score: 0,
+            description: "",
+            assigned_to: "",
+            quiz_type: "Graded Quiz",
+            assignment_group: "Quizzes",
+            shuffle_answers: true,
+            time_limit: 20,
+            multiple_attempts: false,
+            show_correct_answers: "",
+            access_code: "",
+            one_question_at_a_time: true,
+            webcam_required: false,
+            lock_questions_after_answering: false,
+            available_date: "",
+            until_date: "",
+            published: false,};
         const quiz = await coursesClient.createQuizForCourse(cid, newQ);
         return quiz;
     }

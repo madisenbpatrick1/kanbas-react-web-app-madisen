@@ -19,29 +19,26 @@ export default function MultipleChoiceEditor({
         }));
     };
 
-    const handleRemoveChoice = (choiceId: string) => {
+    const handleRemoveChoice = (index: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.filter((choice: any) => choice._id !== choiceId),
+            choices: prev.choices.filter((_: string, i: string) => i !== index),
         }));
     };
 
-    const handleChoiceTextChange = (choiceId: string, newText: string) => {
+    const handleChoiceTextChange = (index: string, newText: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.map((choice: any) =>
-                choice._id === choiceId ? { ...choice, text: newText } : choice
+            choices: prev.choices.map((choice: string, i: string) =>
+                i === index ? newText : choice
             ),
         }));
     };
 
-    const handleCorrectChoiceChange = (choiceId: string) => {
+    const handleCorrectChoiceChange = (index: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.map((choice: any) => ({
-                ...choice,
-                isCorrect: choice._id === choiceId,
-            })),
+            correctAnswers: [index], // Update correctAnswers to match the selected index
         }));
     };
 
@@ -51,29 +48,29 @@ export default function MultipleChoiceEditor({
             <strong>Question:</strong>
             <textarea
                 className="form-control mb-2"
-                value={question?.question || ""}
-                onChange={(e) => setQuestion({ ...question, question: e.target.value })}
-                placeholder="Question"
+                value={question?.questionText || ""}
+                onChange={(e) => setQuestion({ ...question, questionText: e.target.value })}
+                placeholder="Question Title"
             />
             <strong>Answers:</strong>
-            {question?.choices?.map((choice: any) => (
-                <div key={choice._id} className="d-flex align-items-center mb-2">
+            {question?.choices?.map((choice: any, index: string) => (
+                <div key={index} className="d-flex align-items-center mb-2">
                     <label>Possible Answer</label>
                     <textarea
                         className="form-control"
-                        value={choice.text}
-                        onChange={(e) => handleChoiceTextChange(choice._id, e.target.value)}
+                        value={choice}
+                        onChange={(e) => handleChoiceTextChange(index, e.target.value)}
                         placeholder="Choice text"
                     />
                     <input
                         type="radio"
                         className="form-check-input ms-2"
-                        checked={choice.isCorrect}
-                        onChange={() => handleCorrectChoiceChange(choice._id)}
+                        checked={question.correctAnswers?.[0] === index}
+                        onChange={() => handleCorrectChoiceChange(index)}
                     />
                     <button
                         className="btn btn-danger ms-2"
-                        onClick={() => handleRemoveChoice(choice._id)}
+                        onClick={() => handleRemoveChoice(index)}
                     >
                         Remove
                     </button>

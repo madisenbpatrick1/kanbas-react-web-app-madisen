@@ -3,7 +3,7 @@ import GreenCheckmark from "../Modules/GreenCheckmark";
 import { useState } from "react";
 import { useParams } from "react-router";
 import { FcCancel } from "react-icons/fc";
-
+import {  useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 export default function QuizListButtons({ quizId, published, deleteQuiz, publishQuiz, unPublishQuiz }:
     {
@@ -18,6 +18,9 @@ export default function QuizListButtons({ quizId, published, deleteQuiz, publish
     const [isPublished, setIsPublished] = useState(published);
     const { cid } = useParams();
     const navigate = useNavigate();
+    const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+    const currentQuiz = quizzes.find((q: any) => q._id === quizId);
+
     const handleEdit = () => {
         navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${quizId}`);
     }
@@ -27,7 +30,7 @@ export default function QuizListButtons({ quizId, published, deleteQuiz, publish
     };
 
     const handlePublish = () => {
-        isPublished ? unPublishQuiz(quizId) : publishQuiz(quizId);
+        isPublished ? unPublishQuiz(currentQuiz) : publishQuiz(currentQuiz);
 
         setIsPublished(!isPublished);
         console.log(isPublished)
