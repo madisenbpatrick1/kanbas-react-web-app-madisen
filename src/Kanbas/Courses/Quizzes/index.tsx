@@ -85,7 +85,7 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
                                                 <QuizListButtons
                                                     quizId={quiz._id}
                                                     published={quiz.published}
-                                                    deleteQuiz={(quizId) => deleteQuiz(quizId) }
+                                                    deleteQuiz={(quizId) => removeQuiz(quizId) }
                                                     publishQuiz={(quizId) => dispatch(publishQuiz(quizId))}
                                                     unPublishQuiz={(quizId) => dispatch(unPublishQuiz(quizId))} />
                                             </div>
