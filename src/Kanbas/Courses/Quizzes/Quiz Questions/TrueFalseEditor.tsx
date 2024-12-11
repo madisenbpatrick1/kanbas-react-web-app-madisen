@@ -1,4 +1,4 @@
-
+import React from "react";
 
 export default function TrueFalseEditor({
     question,
@@ -12,32 +12,37 @@ export default function TrueFalseEditor({
     onCancel: () => void;
 }) {
 
+    // Automatically add true and false choices
     const handleAddChoices = () => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: [
-                { _id: Date.now().toString(), text: "true", isCorrect: false },
-                { _id: Date.now().toString(), text: "false", isCorrect: false },
-            ],
+            choices: ["true", "false"], // Add the true and false options
+            correctAnswers: [] // Clear any existing correct answer selection
         }));
     };
 
     const handleRemoveChoice = (index: number) => {
-        setQuestion((prev: any) => ({
-            ...prev,
-            choices: prev.choices.filter((_: any, i: number) => i !== index),
-        }));
-    };
+        setQuestion((prev: any) => {
+            const updatedChoices = prev.choices.filter((_: any, i: number) => i !== index);
+            let updatedCorrectAnswers = prev.correctAnswers;
 
+            // If the correct answer is being removed, remove it from correctAnswers as well
+            if (prev.correctAnswers === prev.choices[index]) {
+                updatedCorrectAnswers = [];
+            }
+
+            return {
+                ...prev,
+                choices: updatedChoices,
+                correctAnswers: updatedCorrectAnswers,
+            };
+        });
+    };
 
     const handleCorrectChoiceChange = (choiceText: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.map((choice: any) => ({
-                ...choice,
-                isCorrect: choice.text === choiceText, // Mark the correct choice based on text
-            })),
-            correctAnswers: choiceText, // Store the text of the correct answer
+            correctAnswers: choiceText, // Store the correct choice text
         }));
     };
 
@@ -53,13 +58,13 @@ export default function TrueFalseEditor({
             <div>
                 <strong>Answers:</strong><br />
                 {question?.choices?.map((choice: any, index: number) => (
-                    <div key={choice._id} className="d-flex align-items-center mb-2">
-                        <label>{choice.text}</label>
+                    <div key={index} className="d-flex align-items-center mb-2">
+                        <label>{choice}</label>
                         <input
                             type="radio"
                             className="form-check-input ms-2"
-                            checked={question.correctAnswers === choice.text} // Compare with the text of the correct choice
-                            onChange={() => handleCorrectChoiceChange(choice.text)} // Pass the text of the choice
+                            checked={question.correctAnswers === choice} // Compare with the text of the correct choice
+                            onChange={() => handleCorrectChoiceChange(choice)} // Pass the text of the choice
                         />
                         <button
                             className="btn btn-danger ms-2"
@@ -71,7 +76,6 @@ export default function TrueFalseEditor({
                 ))}
             </div>
             <button className="btn btn-secondary mt-1 float-end" onClick={handleAddChoices}>
-                {/* <FaPlus className="me-1"/> */}
                 Add True/False Choices
             </button>
             <div className="mt-3">
