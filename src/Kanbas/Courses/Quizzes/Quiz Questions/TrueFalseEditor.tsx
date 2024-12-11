@@ -16,8 +16,8 @@ export default function TrueFalseEditor({
         setQuestion((prev: any) => ({
             ...prev,
             choices: [
-                { _id: Date.now().toString(), text: "True", isCorrect: false },
-                { _id: Date.now().toString(), text: "False", isCorrect: false },
+                { _id: Date.now().toString(), text: "true", isCorrect: false },
+                { _id: Date.now().toString(), text: "false", isCorrect: false },
             ],
         }));
     };
@@ -29,14 +29,15 @@ export default function TrueFalseEditor({
         }));
     };
 
-    const handleCorrectChoiceChange = (index: number) => {
+
+    const handleCorrectChoiceChange = (choiceText: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.map((choice: any, i: number) => ({
+            choices: prev.choices.map((choice: any) => ({
                 ...choice,
-                isCorrect: i === index, // Mark this choice as correct
+                isCorrect: choice.text === choiceText, // Mark the correct choice based on text
             })),
-            correctAnswers: [index], // Store the index of the correct answer
+            correctAnswers: choiceText, // Store the text of the correct answer
         }));
     };
 
@@ -52,22 +53,22 @@ export default function TrueFalseEditor({
             <div>
                 <strong>Answers:</strong><br />
                 {question?.choices?.map((choice: any, index: number) => (
-                <div key={choice._id} className="d-flex align-items-center mb-2">
-                    <label>{choice.text}</label>
-                    <input
-                        type="radio"
-                        className="form-check-input ms-2"
-                        checked={question.correctAnswers?.[0] === index}
-                        onChange={() => handleCorrectChoiceChange(index)}
-                    />
-                    <button
-                        className="btn btn-danger ms-2"
-                        onClick={() => handleRemoveChoice(index)}
-                    >
-                        Remove
-                    </button>
-                </div>
-            ))}
+                    <div key={choice._id} className="d-flex align-items-center mb-2">
+                        <label>{choice.text}</label>
+                        <input
+                            type="radio"
+                            className="form-check-input ms-2"
+                            checked={question.correctAnswers === choice.text} // Compare with the text of the correct choice
+                            onChange={() => handleCorrectChoiceChange(choice.text)} // Pass the text of the choice
+                        />
+                        <button
+                            className="btn btn-danger ms-2"
+                            onClick={() => handleRemoveChoice(index)}
+                        >
+                            Remove
+                        </button>
+                    </div>
+                ))}
             </div>
             <button className="btn btn-secondary mt-1 float-end" onClick={handleAddChoices}>
                 {/* <FaPlus className="me-1"/> */}

@@ -7,7 +7,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import MultipleChoiceEditor from "./MultipleChoiceEditor";
 import TrueFalseEditor from "./TrueFalseEditor";
 import FillInTheBlankEditor from "./FillInTheBlankEditor";
-import * as assignmentsClient from "../client";
+import * as quizClient from "../client";
 import { updateQuiz } from "../reducer";
 
 export default function QuizDetails() {
@@ -68,7 +68,7 @@ export default function QuizDetails() {
         const updatedQuiz = { ...quiz, questions: updatedQuestions, points: totalPoints, num_of_q: num_of_q };
 
         setQuiz(updatedQuiz);
-        await assignmentsClient.updateQuiz(updatedQuiz);
+        await quizClient.updateQuiz(updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
     };
 
@@ -122,7 +122,7 @@ export default function QuizDetails() {
                     { _id: "2", text: "", isCorrect: false },
                 ],
             }),
-            ...(newType === "True/False" && { correctAnswer: null }),
+            ...(newType === "True/False" && { correctAnswers: null }),
             ...(newType === "Fill in the Blank" && { correctAnswers: [] }),
         };
         setCurrentQuestion(updatedQuestion);

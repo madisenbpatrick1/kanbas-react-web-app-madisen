@@ -1,4 +1,3 @@
-import React from "react";
 import { FaPlus } from "react-icons/fa";
 
 export default function FillInTheBlankEditor({
@@ -10,46 +9,35 @@ export default function FillInTheBlankEditor({
     const handleAddAnswer = () => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: [
-                ...prev.choices,
-                { _id: Date.now().toString(), text: "", isCorrect: false },
-            ],
+            choices: [...prev.choices, ""], // Start with empty string for new choices
         }));
     };
 
     const handleRemoveAnswer = (index: number) => {
         const updatedChoices = [...question.choices];
-        updatedChoices.splice(index, 1);
-        const updatedAnswers = question.correctAnswers.filter((_: any, i: number) => i!== index);
-        setQuestion({ ...question, choiceAnswers:updatedAnswers, choices: updatedChoices });
+        updatedChoices.splice(index, 1); // Remove the choice
+        const updatedCorrectAnswers = question.correctAnswers.filter(
+            (answer: string) => answer !== question.choices[index] // Remove the corresponding correct answer
+        );
+        setQuestion({ ...question, choices: updatedChoices, correctAnswers: updatedCorrectAnswers });
     };
 
-    const handleAnswerChange = (index: number, field: string, value: any) => {
+    const handleAnswerChange = (index: number, newText: string) => {
         const updatedChoices = [...question.choices];
-        updatedChoices[index] = {
-            ...updatedChoices[index],
-            [field]: value,
-        };
+        updatedChoices[index] = newText; // Update choice as string
         setQuestion({ ...question, choices: updatedChoices });
     };
 
-    const handleCorrectAnswerChange = (index: number) => {
+    const handleCorrectAnswerChange = (choiceText: string) => {
         setQuestion((prev: any) => {
-
             const updatedCorrectAnswers = [...prev.correctAnswers];
-            if (!updatedCorrectAnswers.includes(index)) {
-                updatedCorrectAnswers.push(index);
-            } else if(updatedCorrectAnswers.includes(index)) {
-                updatedCorrectAnswers.splice(updatedCorrectAnswers.indexOf(index), 1);
+            if (updatedCorrectAnswers.includes(choiceText)) {
+                updatedCorrectAnswers.splice(updatedCorrectAnswers.indexOf(choiceText), 1); // Remove if already correct
+            } else {
+                updatedCorrectAnswers.push(choiceText); // Add if not already correct
             }
-          
-            const updatedChoices = prev.choices.map((choice: any, i: number) => ({
-                ...choice,
-                isCorrect: i === index, 
-            }));
             return {
                 ...prev,
-                choices: updatedChoices,
                 correctAnswers: updatedCorrectAnswers, // Update correctAnswers
             };
         });
@@ -68,23 +56,21 @@ export default function FillInTheBlankEditor({
             />
             <div className="mb-3">
                 <strong>Answers:</strong> <br />
-                {question.choices.map((choice: any, index: number) => (
-                    <div key={choice._id} className="d-flex align-items-center mb-2">
+                {question.choices.map((choice: string, index: number) => (
+                    <div key={index} className="d-flex align-items-center mb-2">
                         <input
                             type="text"
                             className="form-control me-2"
                             placeholder="Answer Text"
-                            value={choice.text}
-                            onChange={(e) =>
-                                handleAnswerChange(index, "text", e.target.value)
-                            }
+                            value={choice}
+                            onChange={(e) => handleAnswerChange(index, e.target.value)}
                         />
                         <div className="form-check me-2">
                             <input
                                 type="checkbox"
                                 className="form-check-input"
-                                checked={question.correctAnswers.includes(index)}
-                                onChange={() => handleCorrectAnswerChange(index)}
+                                checked={question.correctAnswers.includes(choice)} // Compare with choice text
+                                onChange={() => handleCorrectAnswerChange(choice)} // Toggle correct answer
                             />
                             <label className="form-check-label">Correct</label>
                         </div>
@@ -96,7 +82,6 @@ export default function FillInTheBlankEditor({
                         </button>
                     </div>
                 ))}
-
                 <button className="btn btn-secondary mt-1 float-end" onClick={handleAddAnswer}>
                     <FaPlus className="me-1" />
                     Add Answer

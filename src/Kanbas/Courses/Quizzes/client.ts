@@ -12,3 +12,7 @@ export const updateQuiz = async (quiz: any) => {
  return data;
 };
 
+export const createQuizAttempt = async (quizAttempt: any) => {
+    const { data } = await axios.post(`${QUIZZES_API}/attempts`, quizAttempt);
+    return data;
+}

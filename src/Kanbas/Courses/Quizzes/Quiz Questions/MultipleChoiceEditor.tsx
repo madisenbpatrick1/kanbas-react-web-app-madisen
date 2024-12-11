@@ -1,6 +1,5 @@
 import { FaPlus } from "react-icons/fa";
 
-
 export default function MultipleChoiceEditor({
     question,
     setQuestion,
@@ -12,33 +11,37 @@ export default function MultipleChoiceEditor({
     onSave: (q: any) => void;
     onCancel: () => void;
 }) {
+    // Handle adding a new choice
     const handleAddChoice = () => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: [...prev.choices, { _id: Date.now().toString(), text: "", isCorrect: false }],
+            choices: [...prev.choices, ""], // Each new choice is an empty string
         }));
     };
 
-    const handleRemoveChoice = (index: string) => {
+    // Handle removing a choice by index
+    const handleRemoveChoice = (index: number) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.filter((_: string, i: string) => i !== index),
+            choices: prev.choices.filter((_: any, i: number) => i !== index), // Remove choice by index
         }));
     };
 
-    const handleChoiceTextChange = (index: string, newText: string) => {
+    // Handle updating the choice text
+    const handleChoiceTextChange = (index: number, newText: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            choices: prev.choices.map((choice: string, i: string) =>
-                i === index ? newText : choice
+            choices: prev.choices.map((choice: string, i: number) =>
+                i === index ? newText : choice // Update the string value directly
             ),
         }));
     };
 
-    const handleCorrectChoiceChange = (index: string) => {
+    // Handle changing the correct answer
+    const handleCorrectChoiceChange = (choiceText: string) => {
         setQuestion((prev: any) => ({
             ...prev,
-            correctAnswers: [index], // Update correctAnswers to match the selected index
+            correctAnswers: choiceText, // Set the correct answer text directly
         }));
     };
 
@@ -53,31 +56,31 @@ export default function MultipleChoiceEditor({
                 placeholder="Question Title"
             />
             <strong>Answers:</strong>
-            {question?.choices?.map((choice: any, index: string) => (
+            {question?.choices?.map((choice: string, index: number) => (
                 <div key={index} className="d-flex align-items-center mb-2">
                     <label>Possible Answer</label>
                     <textarea
                         className="form-control"
-                        value={choice}
-                        onChange={(e) => handleChoiceTextChange(index, e.target.value)}
+                        value={choice} // Use the choice text directly
+                        onChange={(e) => handleChoiceTextChange(index, e.target.value)} // Update the choice text
                         placeholder="Choice text"
                     />
                     <input
                         type="radio"
                         className="form-check-input ms-2"
-                        checked={question.correctAnswers?.[0] === index}
-                        onChange={() => handleCorrectChoiceChange(index)}
+                        checked={question.correctAnswers === choice} // Compare with choice text directly
+                        onChange={() => handleCorrectChoiceChange(choice)} // Set correct answer to the choice text
                     />
                     <button
                         className="btn btn-danger ms-2"
-                        onClick={() => handleRemoveChoice(index)}
+                        onClick={() => handleRemoveChoice(index)} // Remove choice by index
                     >
                         Remove
                     </button>
                 </div>
             ))}
             <button className="btn btn-secondary mt-1 float-end" onClick={handleAddChoice}>
-                <FaPlus className="me-1"/>
+                <FaPlus className="me-1" />
                 Add Answer
             </button>
             <div className="mt-3">

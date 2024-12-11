@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { updateQuiz, publishQuiz } from "./reducer";
-import * as assignmentsClient from "./client";
+// import * as assignmentsClient from "./client";
+// import * as coursesClient from "../client";
+import * as quizClient from "./client";
 
 export default function QuizzesEditor() {
     const { cid, qid } = useParams();
@@ -51,14 +53,14 @@ export default function QuizzesEditor() {
     }, [qid, quizzes]);
 
     const handleSave = async () => {
-        await assignmentsClient.updateQuiz(quiz);
+        await quizClient.updateQuiz(quiz);
         dispatch(updateQuiz(quiz));
         navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${qid}`);
     }
     const handleSavePublish = async () => {
         const updatedQuiz = { ...quiz, published: true, 
             availability: "Open" };
-        await assignmentsClient.updateQuiz(updatedQuiz);
+        await quizClient.updateQuiz(updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
         dispatch(publishQuiz(updatedQuiz._id));
         navigate(`/Kanbas/Courses/${cid}/Quizzes/`);
