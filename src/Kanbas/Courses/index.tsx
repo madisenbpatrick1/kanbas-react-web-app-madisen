@@ -18,6 +18,7 @@ import QuizQuestions from "./Quizzes/Quiz Questions/QuizQuestions";
 import QuizPreview from "./Quizzes/Quiz Details/QuizPreview";
 import * as courseClient from "./client";
 import { useState, useEffect } from "react";
+import QuizResult from "./Quizzes/Quiz Details/QuizResult";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
@@ -63,6 +64,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Quizzes/Editor/:qid" element={<QuizzesEditor  />} />
                         <Route path="Quizzes/Editor/:qid/Questions" element={<QuizQuestions />} />
                         <Route path="Quizzes/Preview/:qid" element={<QuizPreview/>} />
+                        <Route path="Quizzes/Results/:qid" element = {<QuizResult/>} />
                         <Route path="People" element={<PeopleTable users={users}/>} />
 
                     </Routes>

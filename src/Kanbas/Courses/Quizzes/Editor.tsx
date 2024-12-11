@@ -187,7 +187,8 @@ export default function QuizzesEditor() {
                         </div>
                         <div className="row border p-3"> {/* Multiple Attempts */}
                             <input className="form-check-input" type="checkbox"
-                                checked={(quiz.multiple_attempts)} onChange={(e) => setQuiz({ ...quiz, multiple_attempts: e.target.checked })}
+                                checked={(quiz.multiple_attempts)} 
+                                onChange={(e) => setQuiz({ ...quiz, multiple_attempts: e.target.checked })}
                                 id="wd-multiple-attempts" />
                             <label htmlFor="wd-multiple-attempts"
                                 className="col-sm-6 col-form-label pt-0">

@@ -25,7 +25,9 @@ export default function QuizDetailsControls({ canEdit }: { canEdit: boolean; }) 
 
             </div>}
             {!canEdit && <div>
-                <button className="btn btn-danger">Start</button>
+                <Link to={`/Kanbas/Courses/${cid}/Quizzes/Preview/${qid}`}><button className="btn btn-lg float-center btn-danger me-3 ">
+                    Start
+                </button></Link>
             </div>}
         </div>
     );
