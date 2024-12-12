@@ -24,7 +24,6 @@ const assignmentsSlice = createSlice({
                 availableUntilDate: assignment.availableUntilDate,
                 course: assignment.course,
             };
-            //state.assignments.push(newAssignment);
             state.assignments = [...state.assignments, newAssignment] as any;
         },
         deleteAssignment: (state, { payload: assignmentId }) => {

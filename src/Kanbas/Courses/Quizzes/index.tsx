@@ -3,12 +3,13 @@ import QuizzesControls from "./QuizzesControls";
 import { useParams } from "react-router";
 import { RxRocket } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { publishQuiz, unPublishQuiz, deleteQuiz, setQuizzes, updateQuiz } from "./reducer";
+import { deleteQuiz, setQuizzes, updateQuiz } from "./reducer";
 import { Link } from "react-router-dom";
 import QuizListButtons from "./QuizListButtons";
 import { useEffect } from "react";
 import * as coursesClient from "../client";
-import * as assignmentsClient from "./client";
+//import * as assignmentsClient from "./client";
+import * as quizClient from "./client";
 
 
 export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
@@ -20,19 +21,19 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
 
 
     const removeQuiz = async (quizId: string) => {
-        await assignmentsClient.deleteQuiz(quizId);
+        await quizClient.deleteQuiz(quizId);
         dispatch(deleteQuiz(quizId));
     }
 
     const publishQuiz = async (quiz: any) => {
         const updatedQuiz = { ...quiz, published: true, availability: "Open" };
-        await assignmentsClient.updateQuiz(updatedQuiz);
+        await quizClient.updateQuiz(updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
     }
 
     const unpublishQuiz = async (quiz: any) => {
         const updatedQuiz = { ...quiz, published: false, availability: "Closed" };
-        await assignmentsClient.updateQuiz(updatedQuiz);
+        await quizClient.updateQuiz(updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
     }
 
@@ -55,6 +56,9 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
 
     const filteredQs = canEdit ? quizzes : quizzes.filter((q: any) => q.published);
     const formatDueDate = (dateString: string) => {
+        if (!dateString) {
+            return "";
+        }
         const [year, month, day] = dateString.split("-").map(Number);
         const date = new Date(year, month - 1, day); // month is 0-indexed
 
@@ -73,6 +77,8 @@ export default function Quizzes({ canEdit }: { canEdit: boolean; }) {
 
     const getAvailabilityText = (availabilityDate: string, availableUntilDate: string) => {
         const now = new Date();
+        if(!availabilityDate || !availableUntilDate) {return "";}
+
         const [availableYear, availableMonth, availableDay] = availabilityDate.split("-").map(Number);
         const availableDateObj = new Date(availableYear, availableMonth - 1, availableDay);
 

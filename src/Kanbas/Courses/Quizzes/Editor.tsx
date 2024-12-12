@@ -4,7 +4,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { updateQuiz, publishQuiz } from "./reducer";
+import { updateQuiz} from "./reducer";
 // import * as assignmentsClient from "./client";
 // import * as coursesClient from "../client";
 import * as quizClient from "./client";
@@ -62,7 +62,7 @@ export default function QuizzesEditor() {
             availability: "Open" };
         await quizClient.updateQuiz(updatedQuiz);
         dispatch(updateQuiz(updatedQuiz));
-        dispatch(publishQuiz(updatedQuiz._id));
+        //dispatch(publishQuiz(updatedQuiz._id));
         navigate(`/Kanbas/Courses/${cid}/Quizzes/`);
     }
 

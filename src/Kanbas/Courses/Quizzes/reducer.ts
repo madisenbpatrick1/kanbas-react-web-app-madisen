@@ -32,20 +32,9 @@ const quizzesSlice = createSlice({
                 q._id === quiz._id? quiz : q
             ) as any;
         },
-        publishQuiz: (state, { payload: quizId})=> {
-            // const quiz = state.quizzes.find((q) => q._id!== quizId);
-            // if (quiz) {
-            //     quiz.published = true;
-            // }
-        },
-        unPublishQuiz: (state, {payload: quizId}) => {
-            // const quiz = state.quizzes.find((q) => q._id!== quizId);
-            // if (quiz) {
-            //     quiz?.published = false;
-            // }
-        }
+
     }
 })
 
-export const { addQuiz, deleteQuiz, updateQuiz, publishQuiz, unPublishQuiz, setQuizzes } = quizzesSlice.actions;
+export const { addQuiz, deleteQuiz, updateQuiz, setQuizzes } = quizzesSlice.actions;
 export default quizzesSlice.reducer;

@@ -37,13 +37,15 @@ export default function QuizzesControls(
             until_date: "",
             published: false,};
         const quiz = await coursesClient.createQuizForCourse(cid, newQ);
+
         return quiz;
     }
 
     const handleSave = async () => {
         const q = await createQuiz();
+        dispatch(addQuiz({ course: cid }));
+        navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${q._id}`);
         if (q && q._id) {
-            dispatch(addQuiz({ course: cid }));
             navigate(`/Kanbas/Courses/${cid}/Quizzes/Details/${q._id}`);
         }
     }

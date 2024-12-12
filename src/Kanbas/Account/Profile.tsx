@@ -36,6 +36,7 @@ export default function Profile() {
                         id="wd-username"
                         className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+                        placeholder="username"
                     />
 
                     <input
@@ -43,12 +44,14 @@ export default function Profile() {
                         id="wd-password"
                         className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, password: e.target.value })}
+                        placeholder="password"
                     />
                     <input
                         defaultValue={profile.firstName}
                         id="wd-firstname"
                         className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
+                        placeholder="First Name"
                     />
 
                     <input
@@ -56,18 +59,21 @@ export default function Profile() {
                         id="wd-lastname"
                         className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
+                        placeholder="Last Name"
                     />
                     <input
                         defaultValue={profile.dob}
                         id="wd-dob"
                         className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
+                        placeholder="Date of Birth"
                     />
                     <input
                         defaultValue={profile.email}
                         id="wd-email"
                         className="form-control mb-2"
                         onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                        placeholder="Email"
                     />
                     <select
                         onChange={(e) => setProfile({ ...profile, role: e.target.value })}
